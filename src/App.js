@@ -1,17 +1,18 @@
-import React from "react"
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './App.css';
+import pencilIcon from './icons/pencil.png'
 
+//top-level component that is rendered to the DOM root node
 class App extends React.Component {
-    constructor() {
-        super()
-    }
-    
-    render() {      
+    render() {
         return (
-            <div className="placeholder">
-                <h1> test </h1>
-            </div>
-        )    
+            <header id = "mainHeader">
+                <h1 id = "mainTitle">Flipbook Animator</h1>
+                <img src = {pencilIcon}/>
+            </header>
+        );
     }
 }
 
-export default App
+export default App;
