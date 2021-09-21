@@ -1,5 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App.js'
+import IconButton from './IconButton.js'
+import Toolbar from './Toolbar.js'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const app =
+    <div id="app">
+        <Toolbar />
+    </div>
+
+ReactDOM.render(app, document.getElementById('root'));

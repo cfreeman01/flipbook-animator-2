@@ -1,0 +1,10 @@
+#container{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    width: 50px;
+    background-color: #e87b00;
+    overflow: visible;
+    z-index: 1000;
+}
