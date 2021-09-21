@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/flipbook-animator-2/static/css/main.2095182b.chunk.css",
-    "main.js": "/flipbook-animator-2/static/js/main.852e6a70.chunk.js",
-    "main.js.map": "/flipbook-animator-2/static/js/main.852e6a70.chunk.js.map",
+    "main.css": "/flipbook-animator-2/static/css/main.64b7ed91.chunk.css",
+    "main.js": "/flipbook-animator-2/static/js/main.ca0da319.chunk.js",
+    "main.js.map": "/flipbook-animator-2/static/js/main.ca0da319.chunk.js.map",
     "runtime-main.js": "/flipbook-animator-2/static/js/runtime-main.c1f81054.js",
     "runtime-main.js.map": "/flipbook-animator-2/static/js/runtime-main.c1f81054.js.map",
-    "static/js/2.91d8f828.chunk.js": "/flipbook-animator-2/static/js/2.91d8f828.chunk.js",
-    "static/js/2.91d8f828.chunk.js.map": "/flipbook-animator-2/static/js/2.91d8f828.chunk.js.map",
+    "static/js/2.97b4bd00.chunk.js": "/flipbook-animator-2/static/js/2.97b4bd00.chunk.js",
+    "static/js/2.97b4bd00.chunk.js.map": "/flipbook-animator-2/static/js/2.97b4bd00.chunk.js.map",
     "index.html": "/flipbook-animator-2/index.html",
-    "static/css/main.2095182b.chunk.css.map": "/flipbook-animator-2/static/css/main.2095182b.chunk.css.map",
-    "static/js/2.91d8f828.chunk.js.LICENSE.txt": "/flipbook-animator-2/static/js/2.91d8f828.chunk.js.LICENSE.txt",
-    "static/media/pencil.6b38dd3e.png": "/flipbook-animator-2/static/media/pencil.6b38dd3e.png"
+    "static/css/main.64b7ed91.chunk.css.map": "/flipbook-animator-2/static/css/main.64b7ed91.chunk.css.map",
+    "static/js/2.97b4bd00.chunk.js.LICENSE.txt": "/flipbook-animator-2/static/js/2.97b4bd00.chunk.js.LICENSE.txt",
+    "static/media/pencil.588014e8.png": "/flipbook-animator-2/static/media/pencil.588014e8.png"
   },
   "entrypoints": [
     "static/js/runtime-main.c1f81054.js",
-    "static/js/2.91d8f828.chunk.js",
-    "static/css/main.2095182b.chunk.css",
-    "static/js/main.852e6a70.chunk.js"
+    "static/js/2.97b4bd00.chunk.js",
+    "static/css/main.64b7ed91.chunk.css",
+    "static/js/main.ca0da319.chunk.js"
   ]
 }
