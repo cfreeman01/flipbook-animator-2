@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import IconButton from './IconButton.js'
-import Toolbar from './Toolbar.js'
+import Toolbar from './components/Toolbar'
 
-const app =
-    <div id="app">
-        <Toolbar />
-    </div>
-
-ReactDOM.render(app, document.getElementById('root'));
+//top-level react component
+class App extends React.Component {
+    render() {
+        return (
+            <Toolbar/>
+        );
+    }
+}
+ReactDOM.render(<App />, document.getElementById('root'));
