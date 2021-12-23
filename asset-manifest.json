@@ -1,21 +1,26 @@
 {
   "files": {
-    "main.css": "/flipbook-animator-2/static/css/main.64b7ed91.chunk.css",
-    "main.js": "/flipbook-animator-2/static/js/main.ca0da319.chunk.js",
-    "main.js.map": "/flipbook-animator-2/static/js/main.ca0da319.chunk.js.map",
+    "main.css": "/flipbook-animator-2/static/css/main.bb28b310.chunk.css",
+    "main.js": "/flipbook-animator-2/static/js/main.e89493cb.chunk.js",
+    "main.js.map": "/flipbook-animator-2/static/js/main.e89493cb.chunk.js.map",
     "runtime-main.js": "/flipbook-animator-2/static/js/runtime-main.c1f81054.js",
     "runtime-main.js.map": "/flipbook-animator-2/static/js/runtime-main.c1f81054.js.map",
-    "static/js/2.97b4bd00.chunk.js": "/flipbook-animator-2/static/js/2.97b4bd00.chunk.js",
-    "static/js/2.97b4bd00.chunk.js.map": "/flipbook-animator-2/static/js/2.97b4bd00.chunk.js.map",
+    "static/js/2.d0074067.chunk.js": "/flipbook-animator-2/static/js/2.d0074067.chunk.js",
+    "static/js/2.d0074067.chunk.js.map": "/flipbook-animator-2/static/js/2.d0074067.chunk.js.map",
     "index.html": "/flipbook-animator-2/index.html",
-    "static/css/main.64b7ed91.chunk.css.map": "/flipbook-animator-2/static/css/main.64b7ed91.chunk.css.map",
-    "static/js/2.97b4bd00.chunk.js.LICENSE.txt": "/flipbook-animator-2/static/js/2.97b4bd00.chunk.js.LICENSE.txt",
-    "static/media/pencil.588014e8.png": "/flipbook-animator-2/static/media/pencil.588014e8.png"
+    "static/css/main.bb28b310.chunk.css.map": "/flipbook-animator-2/static/css/main.bb28b310.chunk.css.map",
+    "static/js/2.d0074067.chunk.js.LICENSE.txt": "/flipbook-animator-2/static/js/2.d0074067.chunk.js.LICENSE.txt",
+    "static/media/dropper.f62bf4e2.png": "/flipbook-animator-2/static/media/dropper.f62bf4e2.png",
+    "static/media/eraser.ce11724e.png": "/flipbook-animator-2/static/media/eraser.ce11724e.png",
+    "static/media/pen.373e6d9c.png": "/flipbook-animator-2/static/media/pen.373e6d9c.png",
+    "static/media/pencil.588014e8.png": "/flipbook-animator-2/static/media/pencil.588014e8.png",
+    "static/media/redo.b5eb995b.png": "/flipbook-animator-2/static/media/redo.b5eb995b.png",
+    "static/media/undo.eb7626ba.png": "/flipbook-animator-2/static/media/undo.eb7626ba.png"
   },
   "entrypoints": [
     "static/js/runtime-main.c1f81054.js",
-    "static/js/2.97b4bd00.chunk.js",
-    "static/css/main.64b7ed91.chunk.css",
-    "static/js/main.ca0da319.chunk.js"
+    "static/js/2.d0074067.chunk.js",
+    "static/css/main.bb28b310.chunk.css",
+    "static/js/main.e89493cb.chunk.js"
   ]
 }
