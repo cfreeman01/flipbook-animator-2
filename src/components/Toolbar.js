@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import './Toolbar.css'
 import pencilIcon from '../icons/pencil.png'
 import penIcon from '../icons/pen.png'

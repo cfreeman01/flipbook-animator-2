@@ -1,0 +1,39 @@
+#canvasForm{
+    width: 300px;
+    text-align: center;
+    background-color:rgb(225, 225, 225);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30vh;
+}
+
+#canvasForm h1{
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #dc8c30;
+}
+
+#canvasForm input{
+    width: 50px;
+    margin-bottom: 10px;
+}
+
+#canvasForm p{
+    display: inline;
+    color:#dc8c30;
+    font-weight: bold;
+    font-size: 15px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+#canvasForm button{
+    font-weight: bold;
+    font-size: 15px;
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #dc8c30;
+    border-color: #995910;
+    color:rgb(255, 255, 255);
+    margin-bottom: 10px;
+}

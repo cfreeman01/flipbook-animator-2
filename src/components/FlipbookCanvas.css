@@ -1,0 +1,9 @@
+#canvasContainer{
+    margin-top: 10vh;
+    text-align: center;
+}
+
+#bottomCanvas {
+    z-index: -100;
+    border: solid #dc8c30 1px;
+}
