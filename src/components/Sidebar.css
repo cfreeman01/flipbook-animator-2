@@ -1,0 +1,21 @@
+#sidebarContainer{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    width: 200px;
+    text-align: center;
+    background-color: rgb(206, 206, 206);
+    border: solid #9c9feb 1.5px;
+    overflow: auto;
+    z-index: 1000;
+}
+
+#sidebarContainer h1{
+    color: white;
+    margin-top: 0px;
+    margin-top: 0px;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #606380;
+}

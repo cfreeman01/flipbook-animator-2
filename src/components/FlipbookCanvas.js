@@ -1,32 +1,24 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
 import PropTypes from "prop-types";
 import './FlipbookCanvas.css'
 
-class FlipbookCanvas extends React.Component {
+const FlipbookCanvas = ({ width, height }) => {
 
-    static propTypes = {
-        width: PropTypes.number,
-        height: PropTypes.number
-    }
+    const bcRef = React.useRef();
 
-    bcRef = React.createRef();
+    React.useEffect(() => {
+        const bc = bcRef.current;
+        bc.width = width * window.devicePixelRatio;
+        bc.height = height * window.devicePixelRatio;
+        bc.style.width = width + "px";
+        bc.style.height = height + "px";
+    }, [])
 
-    componentDidMount = () => {
-        const bc = this.bcRef.current;
-        bc.width = this.props.width * window.devicePixelRatio;
-        bc.height = this.props.height * window.devicePixelRatio;
-        bc.style.width = this.props.width + "px";
-        bc.style.height = this.props.height + "px";
-    }
-
-    render() {
-        return (
-            <div id='canvasContainer'>
-                <canvas id="bottomCanvas" ref={this.bcRef}/>
-            </div>
-        );
-    }
+    return (
+        <div id='canvasContainer'>
+            <canvas id="bottomCanvas" ref={bcRef} />
+        </div>
+    );
 
 }
 

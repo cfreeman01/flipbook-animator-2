@@ -1,5 +1,6 @@
 import React from 'react'
 import './Toolbar.css'
+import IconButton from './IconButton'
 import pencilIcon from '../icons/pencil.png'
 import penIcon from '../icons/pen.png'
 import eraserIcon from '../icons/eraser.png'
@@ -8,97 +9,42 @@ import undoIcon from '../icons/undo.png'
 import redoIcon from '../icons/redo.png'
 
 //toolbar on the left side of the page
-class Toolbar extends React.Component {
+const Toolbar = () => {
 
-    state = {
-        selectedTool: 'Pencil',
+    const [selectedTool, setSelectedTool] = React.useState('Pencil');
 
-        iconClass: {
-            Pencil: 'iconSelected',
-            Pen: 'iconUnselected',
-            Eraser: 'iconUnselected',
-            Dropper: 'iconUnselected',
-            Undo: 'iconUnselected',
-            Redo: 'iconUnselected'
-        }
-    };
-
-    render() {
-        return (
-            <div id="toolbarContainer">
-                <img alt='Pencil' title='Pencil' src={pencilIcon} className={this.state.iconClass['Pencil']}
-                    onClick={() => this.selectTool('Pencil')} onMouseOver={() => this.mouseOverIcon('Pencil')}
-                    onMouseOut={() => this.mouseOutIcon('Pencil')} />
-
-                <img alt='Pen' title='Pen' src={penIcon} className={this.state.iconClass['Pen']}
-                    onClick={() => this.selectTool('Pen')} onMouseOver={() => this.mouseOverIcon('Pen')}
-                    onMouseOut={() => this.mouseOutIcon('Pen')} />
-
-                <img alt='Eraser' title='Eraser' src={eraserIcon} className={this.state.iconClass['Eraser']}
-                    onClick={() => this.selectTool('Eraser')} onMouseOver={() => this.mouseOverIcon('Eraser')}
-                    onMouseOut={() => this.mouseOutIcon('Eraser')} />
-
-                <img alt='Dropper' title='Dropper' src={dropperIcon} className={this.state.iconClass['Dropper']}
-                    onClick={() => this.selectTool('Dropper')} onMouseOver={() => this.mouseOverIcon('Dropper')}
-                    onMouseOut={() => this.mouseOutIcon('Dropper')} />
-
-                <hr />
-
-                <img alt='Undo' title='Undo' src={undoIcon} className={this.state.iconClass['Undo']}
-                    onMouseOver={() => this.mouseOverIcon('Undo')} onMouseOut={() => this.mouseOutIcon('Undo')}
-                    onMouseDown={() => this.mouseDownIcon('Undo')} onMouseUp={() => this.mouseUpIcon('Undo')}
-                    onClick={this.undo} />
-
-                <img alt='Redo' title='Redo' src={redoIcon} className={this.state.iconClass['Redo']}
-                    onMouseOver={() => this.mouseOverIcon('Redo')} onMouseOut={() => this.mouseOutIcon('Redo')}
-                    onMouseDown={() => this.mouseDownIcon('Redo')} onMouseUp={() => this.mouseUpIcon('Redo')}
-                    onClick={this.redo} />
-            </div>
-        );
-    }
-
-    selectTool = (toolName) => {
-        let newState = Object.assign({}, this.state);
-        newState.iconClass[this.state.selectedTool] = 'iconUnselected';
-        newState.iconClass[toolName] = 'iconSelected';
-        newState.selectedTool = toolName;
-        this.setState(newState);
-    }
-
-    mouseOverIcon = (iconName) => {
-        if (this.state.iconClass[iconName] !== 'iconSelected') {
-            let newState = Object.assign({}, this.state);
-            newState.iconClass[iconName] = 'iconHovered';
-            this.setState(newState);
-        }
-    }
-
-    mouseOutIcon = (iconName) => {
-        let newState = Object.assign({}, this.state);
-        if (this.state.iconClass[iconName] !== 'iconSelected' || iconName === 'Undo' || iconName === 'Redo')
-            newState.iconClass[iconName] = 'iconUnselected';
-        this.setState(newState);
-    }
-
-    mouseDownIcon = (iconName) => {
-        let newState = Object.assign({}, this.state);
-        newState.iconClass[iconName] = 'iconSelected';
-        this.setState(newState);
-    }
-
-    mouseUpIcon = (iconName) => {
-        let newState = Object.assign({}, this.state);
-        newState.iconClass[iconName] = 'iconHovered';
-        this.setState(newState);
-    }
-
-    undo = () => {
+    const undo = () => {
         console.log('Undo');
     }
 
-    redo = () => {
+    const redo = () => {
         console.log('Redo');
     }
+
+    return (
+        <div id="toolbarContainer">
+            <IconButton btnTitle='Pencil' imgSrc={pencilIcon} onClick_p={() => setSelectedTool('Pencil')}
+                selected={selectedTool === 'Pencil'} />
+
+            <IconButton btnTitle='Pen' imgSrc={penIcon} onClick_p={() => setSelectedTool('Pen')}
+                selected={selectedTool === 'Pen'} />
+
+            <IconButton btnTitle='Eraser' imgSrc={eraserIcon} onClick_p={() => setSelectedTool('Eraser')}
+                selected={selectedTool === 'Eraser'} />
+
+            <IconButton btnTitle='Dropper' imgSrc={dropperIcon} onClick_p={() => setSelectedTool('Dropper')}
+                selected={selectedTool === 'Dropper'} />
+
+            <hr />
+
+            <IconButton btnTitle='Undo' imgSrc={undoIcon} onClick_p={() => undo()}
+                selected={false} />
+
+            <IconButton btnTitle='Pencil' imgSrc={redoIcon} onClick_p={() => redo()}
+                selected={false} />
+
+        </div>
+    );
 }
 
 export default Toolbar;

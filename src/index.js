@@ -2,12 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Flipbook from './components/Flipbook'
 
-class App extends React.Component {
+const App = () => <Flipbook />
 
-    render() {
-        return (
-            <Flipbook />
-        );
-    }
-}
 ReactDOM.render(<App />, document.getElementById('root'));
