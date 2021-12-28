@@ -1,4 +1,5 @@
 import React from 'react'
+import FlipbookContext from '../context'
 import Toolbar from './Toolbar'
 import Sidebar from './Sidebar'
 import CanvasForm from './CanvasForm'
@@ -9,13 +10,13 @@ const Flipbook = () => {
     const [globalState, setGlobalState] = React.useState({
         canvasOpen: false,
         canvasWidth: 0,
-        canvasHeight: 0
+        canvasHeight: 0,
+        selectedTool: 'Pencil',
+        selectedColor: '#000000'
     });
 
-    const getGlobalState = () => Object.assign({}, globalState);
-
     const createCanvas = (width, height) => {
-        let newState = getGlobalState();
+        let newState = Object.assign({}, globalState);
         newState.canvasOpen = true;
         newState.canvasWidth = width;
         newState.canvasHeight = height;
@@ -27,11 +28,11 @@ const Flipbook = () => {
         : <CanvasForm createCanvas_p={createCanvas} />;
 
     return (
-        <div id="top-container">
+        <FlipbookContext.Provider value={{globalState, setGlobalState}}>
             <Toolbar />
             {middleComponent}
             <Sidebar />
-        </div>
+        </FlipbookContext.Provider>
     );
 }
 

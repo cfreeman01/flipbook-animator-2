@@ -1,4 +1,5 @@
 import React from 'react'
+import FlipbookContext from '../context'
 import './Toolbar.css'
 import IconButton from './IconButton'
 import pencilIcon from '../icons/pencil.png'
@@ -11,7 +12,7 @@ import redoIcon from '../icons/redo.png'
 //toolbar on the left side of the page
 const Toolbar = () => {
 
-    const [selectedTool, setSelectedTool] = React.useState('Pencil');
+    const {globalState, setGlobalState} = React.useContext(FlipbookContext);
 
     const undo = () => {
         console.log('Undo');
@@ -21,26 +22,32 @@ const Toolbar = () => {
         console.log('Redo');
     }
 
+    const setSelectedTool = (toolName) => {
+        let newState = Object.assign({}, globalState);
+        newState.selectedTool = toolName;
+        setGlobalState(newState);
+    }
+
     return (
         <div id="toolbarContainer">
             <IconButton btnTitle='Pencil' imgSrc={pencilIcon} onClick_p={() => setSelectedTool('Pencil')}
-                selected={selectedTool === 'Pencil'} />
+                selected={globalState.selectedTool === 'Pencil'} />
 
             <IconButton btnTitle='Pen' imgSrc={penIcon} onClick_p={() => setSelectedTool('Pen')}
-                selected={selectedTool === 'Pen'} />
+                selected={globalState.selectedTool === 'Pen'} />
 
             <IconButton btnTitle='Eraser' imgSrc={eraserIcon} onClick_p={() => setSelectedTool('Eraser')}
-                selected={selectedTool === 'Eraser'} />
+                selected={globalState.selectedTool === 'Eraser'} />
 
             <IconButton btnTitle='Dropper' imgSrc={dropperIcon} onClick_p={() => setSelectedTool('Dropper')}
-                selected={selectedTool === 'Dropper'} />
+                selected={globalState.selectedTool === 'Dropper'} />
 
             <hr />
 
             <IconButton btnTitle='Undo' imgSrc={undoIcon} onClick_p={() => undo()}
                 selected={false} />
 
-            <IconButton btnTitle='Pencil' imgSrc={redoIcon} onClick_p={() => redo()}
+            <IconButton btnTitle='Redo' imgSrc={redoIcon} onClick_p={() => redo()}
                 selected={false} />
 
         </div>
