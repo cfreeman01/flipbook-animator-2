@@ -1,0 +1,62 @@
+#bottombarContainer{
+    width: 400px;
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #606380;
+    border: solid #9c9feb 2px;
+    overflow: auto;
+    z-index: 1000;
+    text-align: center;
+}
+
+#topRow{
+    height: 40px;
+    line-height: 40px;
+}
+
+#topRow img{
+    vertical-align: middle;
+}
+
+#frameNum{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 20px;
+    color: white;
+}
+
+#bottombarContainer label{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 15px;
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#chooseFrame{
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+#fps{
+    width: 35px;
+}
+
+#bottombarContainer button{
+    font-weight: bold;
+    font-size: 15px;
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #31334b;
+    border-color: #9c9feb;
+    color:rgb(255, 255, 255);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
+}

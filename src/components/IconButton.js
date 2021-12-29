@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './IconButton.css'
 
-const IconButton = ({btnTitle, imgSrc, onClick_p, selected}) => {
+const IconButton = ({btnTitle, imgSrc, onClick_p, selected, size}) => {
 
     const [btnClass, setClass] = React.useState('iconUnselected');
 
@@ -10,6 +10,8 @@ const IconButton = ({btnTitle, imgSrc, onClick_p, selected}) => {
 
     return(
         <img alt={btnTitle}
+        width={size}
+        height={size}
         title={btnTitle} 
         src={imgSrc} 
         className={iconClass}

@@ -24,28 +24,28 @@ const ColorSelector = () => {
     return (
         <div id='colorSelectorContainer'>
             <IconButton btnTitle='Black' imgSrc={blackIcon} onClick_p={() => { setSelectedColor('#000000') }}
-                selected={globalState.selectedColor === '#000000'} />
+                size={40} selected={globalState.selectedColor === '#000000'} />
 
             <IconButton btnTitle='White' imgSrc={whiteIcon} onClick_p={() => { setSelectedColor('#ffffff') }}
-                selected={globalState.selectedColor === '#ffffff'} />
+                size={40} selected={globalState.selectedColor === '#ffffff'} />
 
             <IconButton btnTitle='Red' imgSrc={redIcon} onClick_p={() => { setSelectedColor('#f85e43') }}
-                selected={globalState.selectedColor === '#f85e43'} />
+                size={40} selected={globalState.selectedColor === '#f85e43'} />
 
             <IconButton btnTitle='Orange' imgSrc={orangeIcon} onClick_p={() => { setSelectedColor('#f39127') }}
-                selected={globalState.selectedColor === '#f39127'} />
+                size={40} selected={globalState.selectedColor === '#f39127'} />
 
             <IconButton btnTitle='Yellow' imgSrc={yellowIcon} onClick_p={() => { setSelectedColor('#f3c327') }}
-                selected={globalState.selectedColor === '#f3c327'} />
+                size={40} selected={globalState.selectedColor === '#f3c327'} />
 
             <IconButton btnTitle='Green' imgSrc={greenIcon} onClick_p={() => { setSelectedColor('#34a234') }}
-                selected={globalState.selectedColor === '#34a234'} />
+                size={40} selected={globalState.selectedColor === '#34a234'} />
 
             <IconButton btnTitle='Pink' imgSrc={pinkIcon} onClick_p={() => { setSelectedColor('#f74579') }}
-                selected={globalState.selectedColor === '#f74579'} />
+                size={40} selected={globalState.selectedColor === '#f74579'} />
 
             <IconButton btnTitle='Blue' imgSrc={blueIcon} onClick_p={() => { setSelectedColor('#4376f8') }}
-                selected={globalState.selectedColor === '#4376f8'} />
+                size={40} selected={globalState.selectedColor === '#4376f8'} />
 
             <input type="color" id="colorPicker" onChange={(e) => { setSelectedColor(e.target.value) }} />
         </div>

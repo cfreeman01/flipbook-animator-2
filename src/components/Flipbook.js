@@ -2,6 +2,7 @@ import React from 'react'
 import FlipbookContext from '../context'
 import Toolbar from './Toolbar'
 import Sidebar from './Sidebar'
+import BottomBar from './BottomBar'
 import CanvasForm from './CanvasForm'
 import FlipbookCanvas from './FlipbookCanvas'
 
@@ -12,7 +13,9 @@ const Flipbook = () => {
         canvasWidth: 0,
         canvasHeight: 0,
         selectedTool: 'Pencil',
-        selectedColor: '#000000'
+        selectedColor: '#000000',
+        selectedSize: 1,
+        curFrame: 0
     });
 
     const createCanvas = (width, height) => {
@@ -32,6 +35,7 @@ const Flipbook = () => {
             <Toolbar />
             {middleComponent}
             <Sidebar />
+            <BottomBar />
         </FlipbookContext.Provider>
     );
 }

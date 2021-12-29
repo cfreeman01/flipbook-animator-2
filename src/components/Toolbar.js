@@ -31,24 +31,24 @@ const Toolbar = () => {
     return (
         <div id="toolbarContainer">
             <IconButton btnTitle='Pencil' imgSrc={pencilIcon} onClick_p={() => setSelectedTool('Pencil')}
-                selected={globalState.selectedTool === 'Pencil'} />
+                size={40} selected={globalState.selectedTool === 'Pencil'} />
 
             <IconButton btnTitle='Pen' imgSrc={penIcon} onClick_p={() => setSelectedTool('Pen')}
-                selected={globalState.selectedTool === 'Pen'} />
+                size={40} selected={globalState.selectedTool === 'Pen'} />
 
             <IconButton btnTitle='Eraser' imgSrc={eraserIcon} onClick_p={() => setSelectedTool('Eraser')}
-                selected={globalState.selectedTool === 'Eraser'} />
+                size={40} selected={globalState.selectedTool === 'Eraser'} />
 
             <IconButton btnTitle='Dropper' imgSrc={dropperIcon} onClick_p={() => setSelectedTool('Dropper')}
-                selected={globalState.selectedTool === 'Dropper'} />
+                size={40} selected={globalState.selectedTool === 'Dropper'} />
 
             <hr />
 
             <IconButton btnTitle='Undo' imgSrc={undoIcon} onClick_p={() => undo()}
-                selected={false} />
+                size={40} selected={false} />
 
             <IconButton btnTitle='Redo' imgSrc={redoIcon} onClick_p={() => redo()}
-                selected={false} />
+                size={40} selected={false} />
 
         </div>
     );
