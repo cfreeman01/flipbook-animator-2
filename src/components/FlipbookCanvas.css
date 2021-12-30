@@ -1,6 +1,5 @@
 #canvasContainer{
-    margin-top: 0;
-    text-align: center;
+    display: inline;
 }
 
 #bottomCanvas {

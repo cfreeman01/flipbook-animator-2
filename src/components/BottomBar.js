@@ -33,7 +33,7 @@ const BottomBar = () => {
                     size={40} selected={false} />
             </div>
 
-            <label for='fps'>Frames per second:</label>
+            <label>Frames per second:</label>
             <input type='number' id='fps' name='fps' defaultValue={1} min={1} />
 
             <button onClick={() => { }}>Create GIF</button>

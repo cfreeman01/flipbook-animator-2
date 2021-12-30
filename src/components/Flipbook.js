@@ -1,4 +1,5 @@
 import React from 'react'
+import './Flipbook.css'
 import FlipbookContext from '../context'
 import Toolbar from './Toolbar'
 import Sidebar from './Sidebar'
@@ -15,6 +16,8 @@ const Flipbook = () => {
         selectedTool: 'Pencil',
         selectedColor: '#000000',
         selectedSize: 1,
+        layers: 'layers',
+        curLayer: 0,
         curFrame: 0
     });
 
@@ -26,18 +29,21 @@ const Flipbook = () => {
         setGlobalState(newState);
     }
 
-    let middleComponent = globalState.canvasOpen ?
-        <FlipbookCanvas width={globalState.canvasWidth} height={globalState.canvasHeight} />
-        : <CanvasForm createCanvas_p={createCanvas} />;
-
-    return (
-        <FlipbookContext.Provider value={{globalState, setGlobalState}}>
-            <Toolbar />
-            {middleComponent}
-            <Sidebar />
-            <BottomBar />
-        </FlipbookContext.Provider>
-    );
+    if (globalState.canvasOpen)
+        return (
+            <FlipbookContext.Provider value={{ globalState, setGlobalState }}>
+                <div id='topLevelContainer'>
+                    <Toolbar />
+                    <FlipbookCanvas width={globalState.canvasWidth} height={globalState.canvasHeight} />
+                    <Sidebar />
+                    <BottomBar />
+                </div>
+            </FlipbookContext.Provider>
+        );
+    else
+        return (
+            <CanvasForm createCanvas_p={createCanvas} />
+        );
 }
 
 export default Flipbook

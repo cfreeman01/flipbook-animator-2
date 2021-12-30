@@ -24,9 +24,9 @@ const Sidebar = () => {
             <h1>Brush Color</h1>
             <ColorSelector />
             <h1>Brush Size</h1>
-            <TextAndRangeSelector min={1} max={100} unit='px' setValue={setSelectedSize}/>
+            <TextAndRangeSelector min={1} max={100} unit='px' initValue={1} setValue={setSelectedSize}/>
             <h1>Last Frame Opacity</h1>
-            <TextAndRangeSelector min={0} max={100} unit='%' setValue={setLastFrameOpacity}/>
+            <TextAndRangeSelector min={0} max={100} unit='%' initValue={20} setValue={setLastFrameOpacity}/>
             <h1>Layers</h1>
             <LayerMenu />
         </div>
