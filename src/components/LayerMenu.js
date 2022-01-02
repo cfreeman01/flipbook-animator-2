@@ -1,7 +1,9 @@
 import React from 'react'
 import FlipbookContext from '../context'
+import { layers } from '../drawData'
 import IconButton from './IconButton'
 import TextAndRangeSelector from './TextAndRangeSelector'
+import Layer from './Layer'
 import LayerMenuItem from './LayerMenuItem'
 import './LayerMenu.css'
 import plusIcon from '../icons/plus.png'
@@ -10,8 +12,6 @@ import upIcon from '../icons/up.png'
 import downIcon from '../icons/down.png'
 import copyIcon from '../icons/copy.png'
 import pasteIcon from '../icons/paste.png'
-
-let newLayerId = 1;
 
 const LayerMenu = () => {
 
@@ -54,12 +54,15 @@ const LayerMenu = () => {
         let newState = Object.assign({}, globalState);
 
         newLmi.unshift({
-            id: newLayerId,
-            name: 'Layer ' + newLayerId,
+            id: globalState.newLayerId,
+            name: 'Layer ' + globalState.newLayerId,
             hidden: false
         });
+        layers[globalState.curFrame].unshift(
+            <Layer key={globalState.newLayerId}/>
+        );
 
-        newLayerId++;
+        newState.newLayerId++;
         newState.curLayer++;
 
         setLayerMenuItems(newLmi);
@@ -80,13 +83,13 @@ const LayerMenu = () => {
     }
 
     const moveLayerUp = () => {
-        if(globalState.curLayer === 0) return;
+        if (globalState.curLayer === 0) return;
         let newLmi = JSON.parse(JSON.stringify(layerMenuItems));
         let newState = Object.assign({}, globalState);
 
         let temp = newLmi[globalState.curLayer];
-        newLmi[globalState.curLayer] = newLmi[globalState.curLayer-1];
-        newLmi[globalState.curLayer-1] = temp;
+        newLmi[globalState.curLayer] = newLmi[globalState.curLayer - 1];
+        newLmi[globalState.curLayer - 1] = temp;
         newState.curLayer--;
 
         setLayerMenuItems(newLmi);
@@ -94,13 +97,13 @@ const LayerMenu = () => {
     }
 
     const moveLayerDown = () => {
-        if(globalState.curLayer === layerMenuItems.length-1) return;
+        if (globalState.curLayer === layerMenuItems.length - 1) return;
         let newLmi = JSON.parse(JSON.stringify(layerMenuItems));
         let newState = Object.assign({}, globalState);
 
         let temp = newLmi[globalState.curLayer];
-        newLmi[globalState.curLayer] = newLmi[globalState.curLayer+1];
-        newLmi[globalState.curLayer+1] = temp;
+        newLmi[globalState.curLayer] = newLmi[globalState.curLayer + 1];
+        newLmi[globalState.curLayer + 1] = temp;
         newState.curLayer++;
 
         setLayerMenuItems(newLmi);

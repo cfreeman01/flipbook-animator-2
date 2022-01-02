@@ -2,8 +2,10 @@
     display: inline;
 }
 
+#canvasContainer canvas{
+    border: solid #9c9feb 1px;
+}
+
 #bottomCanvas {
     z-index: -100;
-    border: solid #9c9feb 1px;
-    background-color: white;
 }

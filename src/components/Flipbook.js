@@ -5,7 +5,7 @@ import Toolbar from './Toolbar'
 import Sidebar from './Sidebar'
 import BottomBar from './BottomBar'
 import CanvasForm from './CanvasForm'
-import FlipbookCanvas from './FlipbookCanvas'
+import DrawingArea from './DrawingArea'
 
 const Flipbook = () => {
 
@@ -16,9 +16,9 @@ const Flipbook = () => {
         selectedTool: 'Pencil',
         selectedColor: '#000000',
         selectedSize: 1,
-        layers: 'layers',
         curLayer: 0,
-        curFrame: 0
+        curFrame: 0,
+        newLayerId: 1
     });
 
     const createCanvas = (width, height) => {
@@ -34,7 +34,7 @@ const Flipbook = () => {
             <FlipbookContext.Provider value={{ globalState, setGlobalState }}>
                 <div id='topLevelContainer'>
                     <Toolbar />
-                    <FlipbookCanvas width={globalState.canvasWidth} height={globalState.canvasHeight} />
+                    <DrawingArea width={globalState.canvasWidth} height={globalState.canvasHeight} />
                     <Sidebar />
                     <BottomBar />
                 </div>
