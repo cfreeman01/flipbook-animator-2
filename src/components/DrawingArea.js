@@ -20,15 +20,9 @@ const DrawingArea = ({ width, height }) => {
         }, 50)();
     });
 
-    React.useEffect(() => {
-        let rect = botCanvas.current.getBoundingClientRect();
-        layers[0].push(<Layer key={0} />);
-        setPos({ top: rect.top, left: rect.left });
-    }, []);
-
     return (
         <div id='canvasContainer'>
-            {layers[globalState.curFrame].map((item, index) => React.cloneElement(item, {
+            {layers[globalState.curFrame].map(({component, hidden, name, opacity}, index) => React.cloneElement(component, {
                 width: width,
                 height: height,
                 top: pos.top,
@@ -36,7 +30,9 @@ const DrawingArea = ({ width, height }) => {
                 zIndex: (globalState.curLayer - index),
                 currentTool: globalState.selectedTool,
                 currentColor: globalState.selectedColor,
-                currentSize: globalState.selectedSize
+                currentSize: globalState.selectedSize,
+                hidden: hidden,
+                opacity: opacity
             }))}
 
             <canvas id="bottomCanvas" ref={botCanvas}

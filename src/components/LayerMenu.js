@@ -1,6 +1,7 @@
 import React from 'react'
 import FlipbookContext from '../context'
 import { layers } from '../drawData'
+import _cloneDeep from 'lodash/cloneDeep';
 import IconButton from './IconButton'
 import TextAndRangeSelector from './TextAndRangeSelector'
 import Layer from './Layer'
@@ -13,25 +14,31 @@ import downIcon from '../icons/down.png'
 import copyIcon from '../icons/copy.png'
 import pasteIcon from '../icons/paste.png'
 
+let clipboard = 'empty';
+
 const LayerMenu = () => {
 
     const { globalState, setGlobalState } = React.useContext(FlipbookContext);
 
-    const [layerMenuItems, setLayerMenuItems] = React.useState([{
-        id: 0,
-        name: 'Layer 0',
-        hidden: false
-    }]);
+    const [newLayerId, setNewLayerId] = React.useState(0);
 
-    const setLayerOpacity = (value) => {
+    const layerArray = layers[globalState.curFrame];
 
-    }
+    React.useEffect(() => {
+        layers[0].push({
+            component: <Layer key={newLayerId} />,
+            hidden: false,
+            name: 'Layer 0',
+            opacity: 100
+        });
+
+        setNewLayerId(newLayerId + 1);
+    }, []);
 
     /*This function actually toggles the 'hidden' status of the layer*/
     const hideLayer = (index) => {
-        let newLmi = JSON.parse(JSON.stringify(layerMenuItems));
-        newLmi[index].hidden = !newLmi[index].hidden;
-        setLayerMenuItems(newLmi);
+        layerArray[index].hidden = !layerArray[index].hidden;
+        setNewLayerId(newLayerId + 1);
     }
 
     const selectLayer = (index) => {
@@ -41,73 +48,73 @@ const LayerMenu = () => {
     }
 
     const renameLayer = (index) => {
-        let newLmi = JSON.parse(JSON.stringify(layerMenuItems));
-        let newName = prompt("Rename layer:", newLmi[index].name);
+        let newName = prompt("Rename layer:", layerArray[index].name);
         if (!(newName == "" || newName == null)) {
-            newLmi[index].name = newName;
-            setLayerMenuItems(newLmi);
+            layerArray[index].name = newName;
         }
+        setNewLayerId(newLayerId + 1);
     }
 
     const addLayer = () => {
-        let newLmi = JSON.parse(JSON.stringify(layerMenuItems));
         let newState = Object.assign({}, globalState);
 
-        newLmi.unshift({
-            id: globalState.newLayerId,
-            name: 'Layer ' + globalState.newLayerId,
-            hidden: false
+        layerArray.unshift({
+            component: <Layer key={newLayerId} />,
+            hidden: false,
+            name: 'New Layer',
+            opacity: 100
         });
-        layers[globalState.curFrame].unshift(
-            <Layer key={globalState.newLayerId}/>
-        );
 
-        newState.newLayerId++;
         newState.curLayer++;
-
-        setLayerMenuItems(newLmi);
         setGlobalState(newState);
+        setNewLayerId(newLayerId + 1);
     }
 
     const cutLayer = () => {
-        if (layerMenuItems.length === 1) return;
+        if (layerArray.length === 1) return;
 
-        let newLmi = JSON.parse(JSON.stringify(layerMenuItems));
         let newState = Object.assign({}, globalState);
 
-        newLmi.splice(globalState.curLayer, 1);
-        if (newState.curLayer === newLmi.length) newState.curLayer--;
+        layerArray.splice(globalState.curLayer, 1);
+        if (globalState.curLayer === layerArray.length)
+            newState.curLayer--;
 
-        setLayerMenuItems(newLmi);
         setGlobalState(newState);
+        setNewLayerId(newLayerId + 1);
     }
 
     const moveLayerUp = () => {
         if (globalState.curLayer === 0) return;
-        let newLmi = JSON.parse(JSON.stringify(layerMenuItems));
         let newState = Object.assign({}, globalState);
 
-        let temp = newLmi[globalState.curLayer];
-        newLmi[globalState.curLayer] = newLmi[globalState.curLayer - 1];
-        newLmi[globalState.curLayer - 1] = temp;
+        let temp = layerArray[globalState.curLayer];
+        layerArray[globalState.curLayer] = layerArray[globalState.curLayer - 1];
+        layerArray[globalState.curLayer - 1] = temp;
         newState.curLayer--;
 
-        setLayerMenuItems(newLmi);
         setGlobalState(newState);
     }
 
     const moveLayerDown = () => {
-        if (globalState.curLayer === layerMenuItems.length - 1) return;
-        let newLmi = JSON.parse(JSON.stringify(layerMenuItems));
+        if (globalState.curLayer === layerArray.length - 1) return;
         let newState = Object.assign({}, globalState);
 
-        let temp = newLmi[globalState.curLayer];
-        newLmi[globalState.curLayer] = newLmi[globalState.curLayer + 1];
-        newLmi[globalState.curLayer + 1] = temp;
+        let temp = layerArray[globalState.curLayer];
+        layerArray[globalState.curLayer] = layerArray[globalState.curLayer + 1];
+        layerArray[globalState.curLayer + 1] = temp;
         newState.curLayer++;
 
-        setLayerMenuItems(newLmi);
         setGlobalState(newState);
+    }
+
+    const setLayerOpacity = (value) => {
+        layerArray[globalState.curLayer].opacity = value;
+    }
+
+    const copyLayer = () => {
+    }
+
+    const pasteLayer = () => {
     }
 
     return (
@@ -128,15 +135,20 @@ const LayerMenu = () => {
             <IconButton btnTitle='Move current layer down' imgSrc={downIcon} onClick_p={moveLayerDown}
                 size={28} selected={false} />
 
-            <IconButton btnTitle='Copy current layer' imgSrc={copyIcon} onClick_p={() => { }}
+            <IconButton btnTitle='Copy current layer' imgSrc={copyIcon} onClick_p={copyLayer}
                 size={28} selected={false} />
 
-            <IconButton btnTitle='Paste layer at top' imgSrc={pasteIcon} onClick_p={() => { }}
+            <IconButton btnTitle='Paste layer at top' imgSrc={pasteIcon} onClick_p={pasteLayer}
                 size={28} selected={false} />
 
-            {layerMenuItems.map((item, index) =>
-                <LayerMenuItem key={item.id} name={item.name} selected={globalState.curLayer === index} hidden={item.hidden}
-                    rename={() => renameLayer(index)} select={() => selectLayer(index)} hide={() => hideLayer(index)} />
+            {layers[globalState.curFrame].map(({ component, hidden, name }, index) =>
+                <LayerMenuItem
+                    key={component.props.key}
+                    name={name}
+                    selected={globalState.curLayer === index}
+                    hidden={hidden}
+                    rename={() => renameLayer(index)} select={() => selectLayer(index)}
+                    hide={() => hideLayer(index)} />
             )}
 
         </div>

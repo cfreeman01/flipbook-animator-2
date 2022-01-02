@@ -18,7 +18,6 @@ const Flipbook = () => {
         selectedSize: 1,
         curLayer: 0,
         curFrame: 0,
-        newLayerId: 1
     });
 
     const createCanvas = (width, height) => {

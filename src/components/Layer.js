@@ -2,7 +2,7 @@ import React from 'react'
 import './Layer.css'
 import { tools } from '../drawData'
 
-const Layer = ({ width, height, top, left, zIndex, currentTool, currentColor, currentSize }) => {
+const Layer = ({ width, height, top, left, zIndex, currentTool, currentColor, currentSize, hidden, opacity }) => {
 
     const canv = React.useRef();
 
@@ -24,25 +24,25 @@ const Layer = ({ width, height, top, left, zIndex, currentTool, currentColor, cu
             height={height * window.devicePixelRatio}
 
             onPointerDown={(event) => {
-                if(!canvs) return;
+                if (!canvs) return;
                 event.preventDefault();
                 tools[currentTool].startPath(event, canvs);
             }}
 
             onPointerMove={(event) => {
-                if(!canvs) return;
+                if (!canvs) return;
                 event.preventDefault();
                 tools[currentTool].draw(event, canvs);
             }}
 
             onPointerUp={(event) => {
-                if(!canvs) return;
+                if (!canvs) return;
                 event.preventDefault();
                 tools[currentTool].endPath();
             }}
 
             onPointerOut={(event) => {
-                if(!canvs) return;
+                if (!canvs) return;
                 event.preventDefault();
                 tools[currentTool].endPath();
             }}
@@ -54,10 +54,10 @@ const Layer = ({ width, height, top, left, zIndex, currentTool, currentColor, cu
                 top: top + window.scrollY,
                 left: left + window.scrollX,
                 zIndex: zIndex,
-                pointerEvents: (zIndex === 0) ? 'all' : 'none'
-            }} />
-    );
-
+                pointerEvents: (zIndex === 0) ? 'all' : 'none',
+                visibility: hidden ? 'hidden' : 'visible',
+                opacity: opacity / 100
+            }} />);
 }
 
 export default Layer;
