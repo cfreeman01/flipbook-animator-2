@@ -7,7 +7,14 @@ let isDrawing = false;
 
 export let layers = [[]];
 
-/*This algorithm for drawingsmoothed curves is stolen from :
+export let undoStack = [];
+export let redoStack = [];
+
+export let botCanvas = {
+    ref: null
+};
+
+/*This algorithm for drawing smoothed curves is stolen from :
 https://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas*/
 const calcSmoothPoints = (tension, numSegments) => {
     let smoothedPoints = [];
@@ -47,7 +54,10 @@ const calcSmoothPoints = (tension, numSegments) => {
 export let tools = {
     Pencil: {
         startPath: (event, canvas) => {
+            let ctx = canvas.getContext('2d');
             let rect = canvas.getBoundingClientRect();
+            undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+            redoStack.length = 0;
             isDrawing = true;
             oldX = midX = event.clientX - rect.left;
             oldY = midY = event.clientY - rect.top;
@@ -88,7 +98,10 @@ export let tools = {
 
     Pen: {
         startPath: (event, canvas) => {
+            let ctx = canvas.getContext('2d');
             let rect = canvas.getBoundingClientRect();
+            undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+            redoStack.length = 0;
             isDrawing = true;
             oldX = midX = event.clientX - rect.left;
             oldY = midY = event.clientY - rect.top;
@@ -142,7 +155,10 @@ export let tools = {
 
     Eraser: {
         startPath: (event, canvas) => {
+            let ctx = canvas.getContext('2d');
             let rect = canvas.getBoundingClientRect();
+            undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+            redoStack.length = 0;
             isDrawing = true;
             oldX = midX = event.clientX - rect.left;
             oldY = midY = event.clientY - rect.top;
@@ -187,16 +203,27 @@ export let tools = {
     },
 
     Dropper: {
-        startPath: (event, newX, newY) => {
-            console.log('Dropper');
+        startPath: function (event, canvas) { //get color at x,y coordinate on main canvas
+            let rect = canvas.getBoundingClientRect();
+            let ctx = canvas.getContext('2d');
+            let x = event.clientX - rect.left;
+            let y = event.clientY - rect.top;
+            let imgData = ctx.getImageData(x * window.devicePixelRatio, y * window.devicePixelRatio, 1, 1).data;
+            let rgb = [];
+            for (let i = 0; i < 3; i++) {
+                rgb[i] = imgData[i].toString(16);
+                if (rgb[i].length === 1) rgb[i] = '0' + rgb[i];
+            }
+            let newColor = '#' + rgb[0] + rgb[1] + rgb[2];
+            return newColor;
         },
 
-        draw: (event, newX, newY) => {
-            console.log('Dropper');
+        draw: function (event) {
+
         },
 
-        endPath: () => {
-            console.log('Dropper');
+        endPath: function () {
+
         }
     }
 }

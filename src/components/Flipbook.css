@@ -1,3 +1,14 @@
 #topLevelContainer{
     text-align: center;
 }
+
+#leftBar{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 40px;
+    background-color: #606380;
+    border: solid #9c9feb 2px;
+    overflow: auto;
+    z-index: 1000;
+}

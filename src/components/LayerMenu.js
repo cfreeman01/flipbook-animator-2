@@ -1,6 +1,6 @@
 import React from 'react'
 import FlipbookContext from '../context'
-import { layers } from '../drawData'
+import { layers, undoStack, redoStack } from '../drawData'
 import _cloneDeep from 'lodash/cloneDeep';
 import IconButton from './IconButton'
 import TextAndRangeSelector from './TextAndRangeSelector'
@@ -27,6 +27,7 @@ const LayerMenu = () => {
     React.useEffect(() => {
         layers[0].push({
             component: <Layer key={newLayerId} />,
+            ref: React.createRef(),
             hidden: false,
             name: 'Layer 0',
             opacity: 100
@@ -45,6 +46,9 @@ const LayerMenu = () => {
         let newState = Object.assign({}, globalState);
         newState.curLayer = index;
         setGlobalState(newState);
+
+        undoStack.length = 0;
+        redoStack.length = 0;
     }
 
     const renameLayer = (index) => {
@@ -60,6 +64,7 @@ const LayerMenu = () => {
 
         layerArray.unshift({
             component: <Layer key={newLayerId} />,
+            ref: React.createRef(),
             hidden: false,
             name: 'New Layer',
             opacity: 100
@@ -112,9 +117,17 @@ const LayerMenu = () => {
     }
 
     const copyLayer = () => {
+        let canv = layerArray[globalState.curLayer].ref.current;
+        let ctx = canv.getContext('2d');
+        clipboard = ctx.getImageData(0, 0, canv.width, canv.height);
     }
 
     const pasteLayer = () => {
+        let canv = layerArray[globalState.curLayer].ref.current;
+        let ctx = canv.getContext('2d');
+        undoStack.push(ctx.getImageData(0, 0, canv.width, canv.height));
+        redoStack.length = 0;
+        ctx.putImageData(clipboard, 0, 0);
     }
 
     return (
@@ -138,12 +151,12 @@ const LayerMenu = () => {
             <IconButton btnTitle='Copy current layer' imgSrc={copyIcon} onClick_p={copyLayer}
                 size={28} selected={false} />
 
-            <IconButton btnTitle='Paste layer at top' imgSrc={pasteIcon} onClick_p={pasteLayer}
+            <IconButton btnTitle='Paste layer' imgSrc={pasteIcon} onClick_p={pasteLayer}
                 size={28} selected={false} />
 
-            {layers[globalState.curFrame].map(({ component, hidden, name }, index) =>
+            {layers[globalState.curFrame].map(({ component, ref, hidden, name }, index) =>
                 <LayerMenuItem
-                    key={component.props.key}
+                    key={component.key}
                     name={name}
                     selected={globalState.curLayer === index}
                     hidden={hidden}

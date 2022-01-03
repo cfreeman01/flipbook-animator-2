@@ -2,6 +2,7 @@ import React from 'react'
 import './Flipbook.css'
 import FlipbookContext from '../context'
 import Toolbar from './Toolbar'
+import UndoRedoBar from './UndoRedoBar.js'
 import Sidebar from './Sidebar'
 import BottomBar from './BottomBar'
 import CanvasForm from './CanvasForm'
@@ -32,7 +33,11 @@ const Flipbook = () => {
         return (
             <FlipbookContext.Provider value={{ globalState, setGlobalState }}>
                 <div id='topLevelContainer'>
-                    <Toolbar />
+                    <div id='leftBar'>
+                        <Toolbar />
+                        <hr />
+                        <UndoRedoBar />
+                    </div>
                     <DrawingArea width={globalState.canvasWidth} height={globalState.canvasHeight} />
                     <Sidebar />
                     <BottomBar />

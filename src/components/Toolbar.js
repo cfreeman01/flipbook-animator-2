@@ -1,26 +1,15 @@
 import React from 'react'
 import FlipbookContext from '../context'
-import './Toolbar.css'
 import IconButton from './IconButton'
 import pencilIcon from '../icons/pencil.png'
 import penIcon from '../icons/pen.png'
 import eraserIcon from '../icons/eraser.png'
 import dropperIcon from '../icons/dropper.png'
-import undoIcon from '../icons/undo.png'
-import redoIcon from '../icons/redo.png'
 
 //toolbar on the left side of the page
 const Toolbar = () => {
 
-    const {globalState, setGlobalState} = React.useContext(FlipbookContext);
-
-    const undo = () => {
-        console.log('Undo');
-    }
-
-    const redo = () => {
-        console.log('Redo');
-    }
+    const { globalState, setGlobalState } = React.useContext(FlipbookContext);
 
     const setSelectedTool = (toolName) => {
         let newState = Object.assign({}, globalState);
@@ -41,15 +30,6 @@ const Toolbar = () => {
 
             <IconButton btnTitle='Dropper' imgSrc={dropperIcon} onClick_p={() => setSelectedTool('Dropper')}
                 size={40} selected={globalState.selectedTool === 'Dropper'} />
-
-            <hr />
-
-            <IconButton btnTitle='Undo' imgSrc={undoIcon} onClick_p={() => undo()}
-                size={40} selected={false} />
-
-            <IconButton btnTitle='Redo' imgSrc={redoIcon} onClick_p={() => redo()}
-                size={40} selected={false} />
-
         </div>
     );
 }
