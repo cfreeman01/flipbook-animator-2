@@ -3,16 +3,41 @@ let oldX = 0, oldY = 0;
 let midX = 0, midY = 0;
 let newX = 0, newY = 0;
 
-let isDrawing = false;
+export let isDrawing = false;
 
 export let layers = [[]];
 
-export let undoStack = [];
-export let redoStack = [];
+let undoStack = [];
+let redoStack = [];
 
 export let botCanvas = {
     ref: null
 };
+
+export const undo = (curFrame, curLayer) => {
+    if (isDrawing) return;
+    let layer = layers[curFrame][curLayer];
+    if (undoStack.length !== 0) {
+        redoStack.push(layer.imgData);
+        let newCanvasImage = undoStack.pop();
+        layer.imgData = newCanvasImage;
+    }
+}
+
+export const redo = (curFrame, curLayer) => {
+    if (isDrawing) return;
+    let layer = layers[curFrame][curLayer];
+    if (redoStack.length !== 0) {
+        undoStack.push(layer.imgData);
+        let newCanvasImage = redoStack.pop();
+        layer.imgData = newCanvasImage;
+    }
+}
+
+export const clearUndoRedoStacks = () => {
+    undoStack.length = 0;
+    redoStack.length = 0;
+}
 
 /*This algorithm for drawing smoothed curves is stolen from :
 https://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas*/

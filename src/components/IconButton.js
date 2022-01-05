@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import './IconButton.css'
 
 const IconButton = ({btnTitle, imgSrc, onClick_p, selected, size}) => {

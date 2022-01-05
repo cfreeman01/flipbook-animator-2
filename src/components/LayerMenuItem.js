@@ -12,8 +12,6 @@ const LayerMenuItem = ({ name, selected, hidden, rename, select, hide }) => {
     const title = hidden ? 'Unhide Layer' : 'Hide Layer';
     const imSrc = hidden ? unhideIcon : hideIcon;
 
-    console.log(name);
-
     return (
         <div className={renderClass} onClick={select}
             onMouseOver={() => setClass('layerMenuItemHovered')}

@@ -1,14 +1,12 @@
 import React from 'react'
 import FlipbookContext from '../context'
-import { tools } from '../drawData'
+import { tools, isDrawing } from '../drawData'
 
-const Layer = ({ canvRef, width, height, top, left, zIndex, hidden, opacity }) => {
+const Layer = ({ imgData, setImgData, width, height, top, left, zIndex, hidden, opacity }) => {
 
     const { globalState, setGlobalState } = React.useContext(FlipbookContext);
 
-    React.useEffect(() => {
-        canvRef.current.getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio);
-    }, []);
+    const canvRef = React.useRef();
 
     let canvs = canvRef ? canvRef.current : null;
     let ctx = canvs ? canvs.getContext('2d') : null;
@@ -17,6 +15,14 @@ const Layer = ({ canvRef, width, height, top, left, zIndex, hidden, opacity }) =
         ctx.strokeStyle = globalState.selectedColor;
         ctx.lineWidth = globalState.selectedSize;
     }
+
+    React.useEffect(() => {
+        if (ctx) {
+            if (!isDrawing && imgData !== null) {
+                ctx.putImageData(imgData, 0, 0);
+            }
+        }
+    });
 
     return (
         <canvas ref={canvRef}
@@ -27,7 +33,7 @@ const Layer = ({ canvRef, width, height, top, left, zIndex, hidden, opacity }) =
                 if (!canvs) return;
                 event.preventDefault();
                 let res = tools[globalState.selectedTool].startPath(event, canvs);
-                if(globalState.selectedTool === 'Dropper'){
+                if (globalState.selectedTool === 'Dropper') {
                     let newState = Object.assign({}, globalState);
                     newState.selectedColor = res;
                     setGlobalState(newState);
@@ -44,12 +50,14 @@ const Layer = ({ canvRef, width, height, top, left, zIndex, hidden, opacity }) =
                 if (!canvs) return;
                 event.preventDefault();
                 tools[globalState.selectedTool].endPath();
+                setImgData(ctx.getImageData(0, 0, width, height));
             }}
 
             onPointerOut={(event) => {
                 if (!canvs) return;
                 event.preventDefault();
                 tools[globalState.selectedTool].endPath();
+                setImgData(ctx.getImageData(0, 0, width, height));
             }}
 
             style={{

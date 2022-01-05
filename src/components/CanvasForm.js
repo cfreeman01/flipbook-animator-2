@@ -8,7 +8,7 @@ const CanvasForm = ({ createCanvas_p }) => {
 
     return (
         <div id='canvasForm'>
-            <h1>Canvas Dimensions</h1>
+            <h1>Canvas Size</h1>
             <p>Width:  </p>
             <input type='number' defaultValue={500} onChange={(e) => inputWidth = e.target.value} />
             <p> px</p>

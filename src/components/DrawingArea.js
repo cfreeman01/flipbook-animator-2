@@ -5,7 +5,7 @@ import { layers, botCanvas } from '../drawData'
 import Layer from './Layer'
 import _debounce from 'lodash.debounce'
 
-const DrawingArea = ({ width, height }) => {
+const DrawingArea = ({ width, height, botCanvasOpacity }) => {
 
     const { globalState, setGlobalState } = React.useContext(FlipbookContext);
 
@@ -17,29 +17,38 @@ const DrawingArea = ({ width, height }) => {
         _debounce(() => {
             let rect = botCanvas.ref.current.getBoundingClientRect();
             setPos({ top: rect.top, left: rect.left });
-        }, 50)();
+        }, 100)();
     });
 
     return (
         <div id='canvasContainer'>
-            {layers[globalState.curFrame].map(({component, ref, hidden, name, opacity}, index) => React.cloneElement(component, {
-                canvRef: ref,
-                width: width,
-                height: height,
-                top: pos.top,
-                left: pos.left,
-                zIndex: (globalState.curLayer - index),
-                hidden: hidden,
-                opacity: opacity
-            }))}
+            {layers.map((frame, frameIndex) =>
+                layers[globalState.curFrame].map(({ id, imgData, hasNewData, hidden, name, opacity }, lyrIndex) => <Layer
+                    key={id}
+                    imgData={imgData}
+                    hasNewData={hasNewData}
+                    setImgData={(newData) => {
+                        layers[globalState.curFrame][globalState.curLayer].imgData = newData;
+                    }}
+                    width={width}
+                    height={height}
+                    top={pos.top}
+                    left={pos.left}
+                    zIndex={(globalState.curLayer - lyrIndex)}
+                    hidden={hidden || (frameIndex !== globalState.curFrame)}
+                    opacity={opacity} />))}
 
             <canvas id="bottomCanvas" ref={botCanvas.ref}
                 width={width * window.devicePixelRatio}
                 height={height * window.devicePixelRatio}
 
                 style={{
+                    left: '50%',
+                    marginLeft: -(width / 2),
                     width: width,
-                    height: height
+                    height: height,
+                    opacity: botCanvasOpacity / 100,
+                    zIndex: -100
                 }} />
         </div>
     );

@@ -3,7 +3,7 @@
 }
 
 #leftBar{
-    position: fixed;
+    position: absolute;
     left: 0px;
     top: 0px;
     width: 40px;

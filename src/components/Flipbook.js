@@ -1,6 +1,7 @@
 import React from 'react'
 import './Flipbook.css'
 import FlipbookContext from '../context'
+import CompletedGIF from './CompletedGIF'
 import Toolbar from './Toolbar'
 import UndoRedoBar from './UndoRedoBar.js'
 import Sidebar from './Sidebar'
@@ -12,6 +13,7 @@ const Flipbook = () => {
 
     const [globalState, setGlobalState] = React.useState({
         canvasOpen: false,
+        gifOpen: false,
         canvasWidth: 0,
         canvasHeight: 0,
         selectedTool: 'Pencil',
@@ -19,6 +21,8 @@ const Flipbook = () => {
         selectedSize: 1,
         curLayer: 0,
         curFrame: 0,
+        newLayerId: 0,
+        botCanvasOpacity: 20
     });
 
     const createCanvas = (width, height) => {
@@ -38,9 +42,11 @@ const Flipbook = () => {
                         <hr />
                         <UndoRedoBar />
                     </div>
-                    <DrawingArea width={globalState.canvasWidth} height={globalState.canvasHeight} />
+                    <DrawingArea width={globalState.canvasWidth} height={globalState.canvasHeight}
+                        botCanvasOpacity={globalState.botCanvasOpacity} />
                     <Sidebar />
                     <BottomBar />
+                    {globalState.gifOpen ? <CompletedGIF /> : ''}
                 </div>
             </FlipbookContext.Provider>
         );

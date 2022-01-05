@@ -16,7 +16,9 @@ const Sidebar = () => {
     }
 
     const setLastFrameOpacity = (value) => {
-
+        let newState = Object.assign({}, globalState);
+        newState.botCanvasOpacity = value;
+        setGlobalState(newState);
     }
 
     return (

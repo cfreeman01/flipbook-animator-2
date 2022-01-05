@@ -1,10 +1,9 @@
 import React from 'react'
 import FlipbookContext from '../context'
-import { layers, undoStack, redoStack } from '../drawData'
+import { layers, clearUndoRedoStacks } from '../drawData'
 import _cloneDeep from 'lodash/cloneDeep';
 import IconButton from './IconButton'
 import TextAndRangeSelector from './TextAndRangeSelector'
-import Layer from './Layer'
 import LayerMenuItem from './LayerMenuItem'
 import './LayerMenu.css'
 import plusIcon from '../icons/plus.png'
@@ -20,63 +19,66 @@ const LayerMenu = () => {
 
     const { globalState, setGlobalState } = React.useContext(FlipbookContext);
 
-    const [newLayerId, setNewLayerId] = React.useState(0);
-
     const layerArray = layers[globalState.curFrame];
 
     React.useEffect(() => {
+        let newState = Object.assign({}, globalState);
         layers[0].push({
-            component: <Layer key={newLayerId} />,
-            ref: React.createRef(),
+            id: globalState.newLayerId,
+            imgData: null,
             hidden: false,
             name: 'Layer 0',
             opacity: 100
         });
-
-        setNewLayerId(newLayerId + 1);
+        newState.newLayerId++;
+        setGlobalState(newState);
     }, []);
 
     /*This function actually toggles the 'hidden' status of the layer*/
     const hideLayer = (index) => {
+        let newState = Object.assign({}, globalState);
         layerArray[index].hidden = !layerArray[index].hidden;
-        setNewLayerId(newLayerId + 1);
+        newState.newLayerId++;
+        setGlobalState(newState);
     }
 
     const selectLayer = (index) => {
         let newState = Object.assign({}, globalState);
         newState.curLayer = index;
         setGlobalState(newState);
-
-        undoStack.length = 0;
-        redoStack.length = 0;
+        clearUndoRedoStacks();
     }
 
     const renameLayer = (index) => {
+        let newState = Object.assign({}, globalState);
         let newName = prompt("Rename layer:", layerArray[index].name);
         if (!(newName == "" || newName == null)) {
             layerArray[index].name = newName;
         }
-        setNewLayerId(newLayerId + 1);
+        newState.newLayerId++;
+        setGlobalState(newState);
     }
 
     const addLayer = () => {
         let newState = Object.assign({}, globalState);
 
         layerArray.unshift({
-            component: <Layer key={newLayerId} />,
-            ref: React.createRef(),
+            id: globalState.newLayerId,
+            imgData: null,
             hidden: false,
-            name: 'New Layer',
+            name: 'Layer 0',
             opacity: 100
         });
 
         newState.curLayer++;
+        newState.newLayerId++;
         setGlobalState(newState);
-        setNewLayerId(newLayerId + 1);
+        clearUndoRedoStacks();
     }
 
-    const cutLayer = () => {
+    const removeLayer = () => {
         if (layerArray.length === 1) return;
+        if(!window.confirm('Permanently delete this layer?')) return;
 
         let newState = Object.assign({}, globalState);
 
@@ -84,8 +86,9 @@ const LayerMenu = () => {
         if (globalState.curLayer === layerArray.length)
             newState.curLayer--;
 
+        newState.newLayerId++;
         setGlobalState(newState);
-        setNewLayerId(newLayerId + 1);
+        clearUndoRedoStacks();
     }
 
     const moveLayerUp = () => {
@@ -117,17 +120,24 @@ const LayerMenu = () => {
     }
 
     const copyLayer = () => {
-        let canv = layerArray[globalState.curLayer].ref.current;
-        let ctx = canv.getContext('2d');
-        clipboard = ctx.getImageData(0, 0, canv.width, canv.height);
+        clipboard = layerArray[globalState.curLayer].imgData;
+        clipboard.data.set(new Uint8ClampedArray(layerArray[globalState.curLayer].imgData.data));
     }
 
     const pasteLayer = () => {
-        let canv = layerArray[globalState.curLayer].ref.current;
-        let ctx = canv.getContext('2d');
-        undoStack.push(ctx.getImageData(0, 0, canv.width, canv.height));
-        redoStack.length = 0;
-        ctx.putImageData(clipboard, 0, 0);
+        let newState = Object.assign({}, globalState);
+        let newData = clipboard;
+        newData.data.set(new Uint8ClampedArray(clipboard.data));
+        layerArray.unshift({
+            id: globalState.newLayerId,
+            imgData: clipboard,
+            hidden: false,
+            name: 'Pasted Layer',
+            opacity: 100
+        });
+        newState.curLayer++;
+        newState.newLayerId++;
+        setGlobalState(newState);
     }
 
     return (
@@ -139,7 +149,7 @@ const LayerMenu = () => {
             <IconButton btnTitle='Add layer at top' imgSrc={plusIcon} onClick_p={addLayer}
                 size={28} selected={false} />
 
-            <IconButton btnTitle='Cut current layer' imgSrc={xIcon} onClick_p={cutLayer}
+            <IconButton btnTitle='Remove current layer' imgSrc={xIcon} onClick_p={removeLayer}
                 size={28} selected={false} />
 
             <IconButton btnTitle='Move current layer up' imgSrc={upIcon} onClick_p={moveLayerUp}
@@ -154,9 +164,9 @@ const LayerMenu = () => {
             <IconButton btnTitle='Paste layer' imgSrc={pasteIcon} onClick_p={pasteLayer}
                 size={28} selected={false} />
 
-            {layers[globalState.curFrame].map(({ component, ref, hidden, name }, index) =>
+            {layers[globalState.curFrame].map(({ id, imgData, hidden, name }, index) =>
                 <LayerMenuItem
-                    key={component.key}
+                    key={id}
                     name={name}
                     selected={globalState.curLayer === index}
                     hidden={hidden}
