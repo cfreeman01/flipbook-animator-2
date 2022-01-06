@@ -14,7 +14,11 @@ const CompletedGIF = ({ gifSrc }) => {
                 setGlobalState(newState);
             }}>
 
-            <img src={gifSrc} onClick={(event) => { event.stopPropagation(); }} />
+            <img src={gifSrc} onClick={(event) => { event.stopPropagation(); }} 
+            style={{
+                display: 'table',
+                margin: 'auto'
+            }}/>
 
         </div>
     );

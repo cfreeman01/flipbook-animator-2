@@ -22,7 +22,7 @@ const BottomBar = () => {
             id: globalState.newLayerId,
             imgData: null,
             hidden: false,
-            name: 'New Layer',
+            name: 'Layer ' + globalState.newLayerId,
             opacity: 100
         }]);
         newState.curFrame++;

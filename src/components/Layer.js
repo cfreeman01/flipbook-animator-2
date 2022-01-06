@@ -8,15 +8,8 @@ const Layer = ({ imgData, setImgData, width, height, top, left, zIndex, hidden, 
 
     const canvRef = React.useRef();
 
-    let canvs = canvRef ? canvRef.current : null;
-    let ctx = canvs ? canvs.getContext('2d') : null;
-
-    if (ctx) {
-        ctx.strokeStyle = globalState.selectedColor;
-        ctx.lineWidth = globalState.selectedSize;
-    }
-
     React.useEffect(() => {
+        let ctx = canvRef.current.getContext('2d');
         if (ctx) {
             if (!isDrawing && imgData !== null) {
                 ctx.putImageData(imgData, 0, 0);
@@ -30,9 +23,15 @@ const Layer = ({ imgData, setImgData, width, height, top, left, zIndex, hidden, 
             height={height * window.devicePixelRatio}
 
             onPointerDown={(event) => {
-                if (!canvs) return;
+                if (!canvRef.current) return;
+
                 event.preventDefault();
-                let res = tools[globalState.selectedTool].startPath(event, canvs);
+
+                let ctx = canvRef.current.getContext('2d');
+                ctx.strokeStyle = globalState.selectedColor;
+                ctx.lineWidth = globalState.selectedSize;
+
+                let res = tools[globalState.selectedTool].startPath(event, canvRef.current);
                 if (globalState.selectedTool === 'Dropper') {
                     let newState = Object.assign({}, globalState);
                     newState.selectedColor = res;
@@ -41,21 +40,23 @@ const Layer = ({ imgData, setImgData, width, height, top, left, zIndex, hidden, 
             }}
 
             onPointerMove={(event) => {
-                if (!canvs) return;
+                if (!canvRef.current) return;
                 event.preventDefault();
-                tools[globalState.selectedTool].draw(event, canvs);
+                tools[globalState.selectedTool].draw(event, canvRef.current);
             }}
 
             onPointerUp={(event) => {
-                if (!canvs) return;
+                if (!canvRef.current) return;
                 event.preventDefault();
+                let ctx = canvRef.current.getContext('2d');
                 tools[globalState.selectedTool].endPath();
                 setImgData(ctx.getImageData(0, 0, width, height));
             }}
 
             onPointerOut={(event) => {
-                if (!canvs) return;
+                if (!canvRef.current) return;
                 event.preventDefault();
+                let ctx = canvRef.current.getContext('2d');
                 tools[globalState.selectedTool].endPath();
                 setImgData(ctx.getImageData(0, 0, width, height));
             }}

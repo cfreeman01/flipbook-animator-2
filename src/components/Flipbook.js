@@ -21,7 +21,7 @@ const Flipbook = () => {
         selectedSize: 1,
         curLayer: 0,
         curFrame: 0,
-        newLayerId: 0,
+        newLayerId: 1,
         botCanvasOpacity: 20,
         botCanvasTop: 0,
         botCanvasLeft: 0,

@@ -1,6 +1,7 @@
 import React from 'react'
 import FlipbookContext from '../context'
 import './ColorSelector.css'
+import _debounce from 'lodash.debounce'
 import IconButton from './IconButton'
 import blackIcon from '../icons/black.png'
 import whiteIcon from '../icons/white.png'
@@ -55,7 +56,10 @@ const ColorSelector = () => {
             <IconButton btnTitle='Blue' imgSrc={blueIcon} onClick_p={() => { setSelectedColor('#4376f8') }}
                 size={32} selected={globalState.selectedColor === '#4376f8'} />
 
-            <input type="color" id="colorPicker" onChange={(e) => { setSelectedColor(e.target.value) }} />
+            <input type="color" id="colorPicker"
+                onChange={(e) => {
+                    setSelectedColor(e.target.value);
+                }} />
         </div>
     );
 }
