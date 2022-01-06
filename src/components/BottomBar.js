@@ -8,6 +8,8 @@ import rightArrowIcon from '../icons/right-arrow.png'
 import plusIcon from '../icons/plus.png'
 import xIcon from '../icons/X.png'
 
+import { GIFEncoder } from '../gif'
+
 let framesPerSecond = 1;
 
 const BottomBar = () => {
@@ -27,7 +29,7 @@ const BottomBar = () => {
         newState.newLayerId++;
         newState.curLayer = 0;
         clearUndoRedoStacks();
-        drawFrameToBottomCanvas(globalState.curFrame);
+        drawFrame(botCanvas.ref.current, globalState.curFrame);
         setGlobalState(newState);
     }
 
@@ -38,10 +40,10 @@ const BottomBar = () => {
         layers.splice(globalState.curFrame, 1);
         if (globalState.curFrame === layers.length) {
             newState.curFrame--;
-            drawFrameToBottomCanvas(globalState.curFrame - 2);
+            drawFrame(botCanvas.ref.current, globalState.curFrame - 2);
         }
         else {
-            drawFrameToBottomCanvas(globalState.curFrame - 1);
+            drawFrame(botCanvas.ref.current, globalState.curFrame - 1);
         }
         newState.newLayerId++;
         newState.curLayer = 0;
@@ -55,7 +57,7 @@ const BottomBar = () => {
         newState.curFrame--;
         newState.curLayer = 0;
         clearUndoRedoStacks();
-        drawFrameToBottomCanvas(globalState.curFrame - 2);
+        drawFrame(botCanvas.ref.current, globalState.curFrame - 2);
         setGlobalState(newState);
     }
 
@@ -65,26 +67,58 @@ const BottomBar = () => {
         newState.curFrame++;
         newState.curLayer = 0;
         clearUndoRedoStacks();
-        drawFrameToBottomCanvas(globalState.curFrame);
+        drawFrame(botCanvas.ref.current, globalState.curFrame);
         setGlobalState(newState);
     }
 
-    const drawFrameToBottomCanvas = (frameIndex) => {
-        if (frameIndex < 0) return;
-        let bc = botCanvas.ref.current;
-        let bctx = bc.getContext('2d');
+    const drawFrame = (canvas, frameIndex) => {
+        let ctx = canvas.getContext('2d');
+
         let tempCanvas = document.createElement("canvas");
-        tempCanvas.width = bc.width;
-        tempCanvas.height = bc.height;
-        bctx.clearRect(0, 0, bc.width, bc.height);
+        tempCanvas.width = canvas.width;
+        tempCanvas.height = canvas.height;
+
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        if (frameIndex < 0) return;
+
         for (let lyrIndex = layers[frameIndex].length - 1; lyrIndex >= 0; lyrIndex--) {
-            if (layers[frameIndex][lyrIndex].imgData)
+            let lyr = layers[frameIndex][lyrIndex];
+            if (lyr.imgData && !lyr.hidden) {
+                ctx.globalAlpha = lyr.opacity / 100;
                 tempCanvas.getContext('2d').putImageData(layers[frameIndex][lyrIndex].imgData, 0, 0);
-            bctx.drawImage(tempCanvas, 0, 0);
+                canvas.getContext('2d').drawImage(tempCanvas, 0, 0);
+            }
         }
     }
 
     const createGIF = () => {
+        let encoder = GIFEncoder();
+        let delay = (1 / framesPerSecond) * 1000;
+        encoder.setQuality(1);
+        encoder.setRepeat(0);
+        encoder.setDelay(delay);
+        encoder.start();
+
+        let offScreenCanvas = document.createElement("canvas");
+        let osctx = offScreenCanvas.getContext('2d');
+        offScreenCanvas.width = botCanvas.ref.current.width;
+        offScreenCanvas.height = botCanvas.ref.current.height;
+
+        for (let frame = 0; frame < layers.length; frame++) {
+            drawFrame(offScreenCanvas, frame);
+            encoder.addFrame(osctx);
+        }
+
+        encoder.finish();
+        let binary_gif = encoder.stream().getData()
+        let data_url = 'data:image/gif;base64,' + btoa(binary_gif);
+
+        let newState = Object.assign({}, globalState);
+        newState.gifOpen = true;
+        newState.gifSrc = data_url;
+        setGlobalState(newState);
     }
 
     return (
@@ -109,7 +143,7 @@ const BottomBar = () => {
             </div>
 
             <label>Frames per second:</label>
-            <input type='number' id='fps' name='fps' defaultValue={1} min={1}
+            <input type='number' id='fps' name='fps' defaultValue={framesPerSecond} min={1}
                 onChange={(e) => { framesPerSecond = e.target.value; }} />
 
             <button onClick={createGIF}>Create GIF</button>

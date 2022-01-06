@@ -25,7 +25,7 @@ const Layer = ({ imgData, setImgData, width, height, top, left, zIndex, hidden, 
     });
 
     return (
-        <canvas ref={canvRef}
+        <canvas ref={canvRef} className='layer'
             width={width * window.devicePixelRatio}
             height={height * window.devicePixelRatio}
 
@@ -69,7 +69,7 @@ const Layer = ({ imgData, setImgData, width, height, top, left, zIndex, hidden, 
                 zIndex: zIndex,
                 pointerEvents: (zIndex === 0) ? 'all' : 'none',
                 visibility: hidden ? 'hidden' : 'visible',
-                opacity: opacity / 100
+                opacity: opacity / 100,
             }} />);
 }
 

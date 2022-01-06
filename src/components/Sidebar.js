@@ -7,9 +7,9 @@ import './Sidebar.css'
 
 const Sidebar = () => {
 
-    const {globalState, setGlobalState} = React.useContext(FlipbookContext);
+    const { globalState, setGlobalState } = React.useContext(FlipbookContext);
 
-    const setSelectedSize = (size) =>{
+    const setSelectedSize = (size) => {
         let newState = Object.assign({}, globalState);
         newState.selectedSize = size;
         setGlobalState(newState);
@@ -22,13 +22,19 @@ const Sidebar = () => {
     }
 
     return (
-        <div id='sidebarContainer'>
+        <div id='sidebarContainer'
+            style={{
+                left: globalState.botCanvasRight + window.scrollX >= window.innerWidth - 190 ?
+                      globalState.botCanvasRight + 15 + window.scrollX : window.innerWidth - 190,
+                top:  globalState.botCanvasTop
+            }}>
+
             <h1>Brush Color</h1>
             <ColorSelector />
             <h1>Brush Size</h1>
-            <TextAndRangeSelector min={1} max={100} unit='px' initValue={1} setValue={setSelectedSize}/>
+            <TextAndRangeSelector min={1} max={100} unit='px' initValue={1} setValue={setSelectedSize} />
             <h1>Last Frame Opacity</h1>
-            <TextAndRangeSelector min={0} max={100} unit='%' initValue={20} setValue={setLastFrameOpacity}/>
+            <TextAndRangeSelector min={0} max={100} unit='%' initValue={20} setValue={setLastFrameOpacity} />
             <h1>Layers</h1>
             <LayerMenu />
         </div>

@@ -22,7 +22,11 @@ const Flipbook = () => {
         curLayer: 0,
         curFrame: 0,
         newLayerId: 0,
-        botCanvasOpacity: 20
+        botCanvasOpacity: 20,
+        botCanvasTop: 0,
+        botCanvasLeft: 0,
+        botCanvasRight: 0,
+        gifSrc: ''
     });
 
     const createCanvas = (width, height) => {
@@ -46,7 +50,7 @@ const Flipbook = () => {
                         botCanvasOpacity={globalState.botCanvasOpacity} />
                     <Sidebar />
                     <BottomBar />
-                    {globalState.gifOpen ? <CompletedGIF /> : ''}
+                    {globalState.gifOpen ? <CompletedGIF gifSrc={globalState.gifSrc}/> : ''}
                 </div>
             </FlipbookContext.Provider>
         );

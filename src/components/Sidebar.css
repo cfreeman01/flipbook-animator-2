@@ -1,13 +1,12 @@
 #sidebarContainer{
     position: absolute;
-    top: 0px;
-    right: 0px;
     width: 180px;
     text-align: center;
     background-color: rgb(206, 206, 206);
     border: solid #9c9feb 1.5px;
     overflow: auto;
     z-index: 1000;
+    vertical-align: top;
 }
 
 #sidebarContainer h1{

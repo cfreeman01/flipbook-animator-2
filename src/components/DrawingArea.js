@@ -17,6 +17,14 @@ const DrawingArea = ({ width, height, botCanvasOpacity }) => {
         _debounce(() => {
             let rect = botCanvas.ref.current.getBoundingClientRect();
             setPos({ top: rect.top, left: rect.left });
+
+            if (rect.top != globalState.botCanvasTop || rect.left != globalState.botCanvasLeft) {
+                let newState = Object.assign({}, globalState);
+                newState.botCanvasTop = rect.top;
+                newState.botCanvasLeft = rect.left;
+                newState.botCanvasRight = rect.right;
+                setGlobalState(newState);
+            }
         }, 100)();
     });
 
@@ -43,12 +51,12 @@ const DrawingArea = ({ width, height, botCanvasOpacity }) => {
                 height={height * window.devicePixelRatio}
 
                 style={{
-                    left: '50%',
-                    marginLeft: -(width / 2),
+                    position: 'relative',
                     width: width,
                     height: height,
                     opacity: botCanvasOpacity / 100,
-                    zIndex: -100
+                    zIndex: -100,
+                    marginLeft: (window.innerWidth / 2) - (width / 2)
                 }} />
         </div>
     );

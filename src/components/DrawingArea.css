@@ -1,4 +1,7 @@
+#canvasContainer{
+    display: inline;
+}
+
 #canvasContainer canvas{
-    position: absolute;
     border: solid #9c9feb 1px;
 }

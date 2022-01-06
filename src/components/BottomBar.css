@@ -1,6 +1,5 @@
 #bottombarContainer{
     width: 400px;
-    position: fixed;
     bottom: 0px;
     left: 0;
     right: 0;
@@ -8,7 +7,6 @@
     margin-right: auto;
     background-color: #606380;
     border: solid #9c9feb 2px;
-    overflow: auto;
     z-index: 1000;
     text-align: center;
 }
