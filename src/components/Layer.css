@@ -1,5 +1,6 @@
 .layer{
     -webkit-touch-callout: none;
     -webkit-user-select: none;
-    user-select: all;
+    touch-action: none;
+    user-select: none;
 }
