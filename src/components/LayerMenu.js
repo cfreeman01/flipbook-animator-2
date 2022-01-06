@@ -111,6 +111,9 @@ const LayerMenu = () => {
 
     const setLayerOpacity = (value) => {
         layers[globalState.curFrame][globalState.curLayer].opacity = value;
+        let newState = Object.assign({}, globalState);
+        newState.newLayerId++;
+        setGlobalState(newState);
     }
 
     const copyLayer = () => {
