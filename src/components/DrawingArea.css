@@ -4,4 +4,8 @@
 
 #canvasContainer canvas{
     border: solid #9c9feb 1px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    user-select: none;
 }

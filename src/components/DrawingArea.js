@@ -15,9 +15,9 @@ const DrawingArea = ({ width, height, botCanvasOpacity }) => {
         _debounce(() => {
             let rect = botCanvas.ref.current.getBoundingClientRect();
             let newState = Object.assign({}, globalState);
-            newState.botCanvasTop = rect.top;
-            newState.botCanvasLeft = rect.left;
-            newState.botCanvasRight = rect.right;
+            newState.canvasTop = rect.top;
+            newState.canvasLeft = rect.left;
+            newState.canvasRight = rect.right;
             setGlobalState(newState);
         }, 100)();
     }
@@ -34,18 +34,17 @@ const DrawingArea = ({ width, height, botCanvasOpacity }) => {
     return (
         <div id='canvasContainer'>
             {layers.map((frame, frameIndex) =>
-                layers[globalState.curFrame].map(({ id, imgData, hasNewData, hidden, name, opacity }, lyrIndex) =>
+                layers[globalState.curFrame].map(({ id, imgData, hidden, name, opacity }, lyrIndex) =>
                     <Layer
                         key={id}
                         imgData={imgData}
-                        hasNewData={hasNewData}
                         setImgData={(newData) => {
                             layers[globalState.curFrame][globalState.curLayer].imgData = newData;
                         }}
                         width={width}
                         height={height}
-                        top={globalState.botCanvasTop}
-                        left={globalState.botCanvasLeft}
+                        top={globalState.canvasTop + window.scrollY}
+                        left={globalState.canvasLeft + window.scrollX}
                         zIndex={(globalState.curLayer - lyrIndex)}
                         hidden={hidden || (frameIndex !== globalState.curFrame)}
                         opacity={opacity}
@@ -54,11 +53,10 @@ const DrawingArea = ({ width, height, botCanvasOpacity }) => {
             <canvas id="bottomCanvas" ref={botCanvas.ref}
                 width={width * window.devicePixelRatio}
                 height={height * window.devicePixelRatio}
-
                 style={{
                     position: 'relative',
-                    width: width,
-                    height: height,
+                    width: width + 'px',
+                    height: height + 'px',
                     opacity: botCanvasOpacity / 100,
                     zIndex: -100,
                     display: 'table',

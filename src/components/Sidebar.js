@@ -21,12 +21,15 @@ const Sidebar = () => {
         setGlobalState(newState);
     }
 
+    let styleTop = globalState.canvasTop + window.scrollY;
+    let styleLeft = globalState.canvasRight + window.scrollX >= window.innerWidth - 190 ?
+        globalState.canvasRight + 15 + window.scrollX : window.innerWidth - 190;
+
     return (
         <div id='sidebarContainer'
             style={{
-                left: globalState.botCanvasRight + window.scrollX >= window.innerWidth - 190 ?
-                      globalState.botCanvasRight + 15 + window.scrollX : window.innerWidth - 190,
-                top:  globalState.botCanvasTop
+                left: '' + styleLeft + 'px',
+                top: '' + styleTop + 'px'
             }}>
 
             <h1>Brush Color</h1>

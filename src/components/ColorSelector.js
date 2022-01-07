@@ -57,8 +57,8 @@ const ColorSelector = () => {
                 size={32} selected={globalState.selectedColor === '#4376f8'} />
 
             <input type="color" id="colorPicker"
-                onChange={(e) => {
-                    setSelectedColor(e.target.value);
+                onChange={(e) => {                     /*todo: optimize this (currently causes continuous*/
+                    setSelectedColor(e.target.value);  /*re-renders as the color is being chosen)*/
                 }} />
         </div>
     );

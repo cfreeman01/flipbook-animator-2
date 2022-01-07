@@ -122,24 +122,27 @@ const BottomBar = () => {
     }
 
     return (
-        <div id='bottombarContainer'>
+        <div id='bottombarContainer'
+            style={{
+                width: globalState.canvasWidth + 'px'
+            }}>
 
             <div id='topRow'>
                 <IconButton btnTitle='Add frame after current frame' imgSrc={plusIcon} onClick_p={addFrame}
-                    size={40} selected={false} />
+                    size={globalState.canvasWidth * 0.08} selected={false} />
 
                 <span id='chooseFrame'>
                     <IconButton btnTitle='Last Frame' imgSrc={leftArrowIcon} onClick_p={prevFrame}
-                        size={40} selected={false} />
+                        size={globalState.canvasWidth * 0.08} selected={false} />
 
                     <span id='frameNum'>frame {globalState.curFrame + 1}/{layers.length}</span>
 
                     <IconButton btnTitle='Next Frame' imgSrc={rightArrowIcon} onClick_p={nextFrame}
-                        size={40} selected={false} />
+                        size={globalState.canvasWidth * 0.08} selected={false} />
                 </span>
 
                 <IconButton btnTitle='Remove current frame' imgSrc={xIcon} onClick_p={removeFrame}
-                    size={40} selected={false} />
+                    size={globalState.canvasWidth * 0.08} selected={false} />
             </div>
 
             <label>Frames per second:</label>

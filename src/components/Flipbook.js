@@ -13,19 +13,25 @@ const Flipbook = () => {
 
     const [globalState, setGlobalState] = React.useState({
         canvasOpen: false,
-        gifOpen: false,
+
         canvasWidth: 0,
         canvasHeight: 0,
+        canvasTop: 0,
+        canvasLeft: 0,
+        canvasRight: 0,
+
+        botCanvasOpacity: 20,
+
         selectedTool: 'Pencil',
         selectedColor: '#000000',
         selectedSize: 1,
+
         curLayer: 0,
         curFrame: 0,
+
         newLayerId: 1,
-        botCanvasOpacity: 20,
-        botCanvasTop: 0,
-        botCanvasLeft: 0,
-        botCanvasRight: 0,
+
+        gifOpen: false,
         gifSrc: ''
     });
 

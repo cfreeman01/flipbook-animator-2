@@ -48,7 +48,7 @@ const UndoRedoBar = () => {
 
     return (
         <div>
-            <IconButton btnTitle='Undo' imgSrc={undoIcon}
+            <IconButton btnTitle='Undo (ctrl + z)' imgSrc={undoIcon}
                 onClick_p={(e) => {
                     undo(globalState.curFrame, globalState.curLayer);
                     let newState = Object.assign({}, globalState);
@@ -57,7 +57,7 @@ const UndoRedoBar = () => {
                 }}
                 size={40} selected={false} />
 
-            <IconButton btnTitle='Redo' imgSrc={redoIcon}
+            <IconButton btnTitle='Redo (ctrl + y)' imgSrc={redoIcon}
                 onClick_p={(e) => {
                     redo(globalState.curFrame, globalState.curLayer);
                     let newState = Object.assign({}, globalState);

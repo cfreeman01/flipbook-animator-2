@@ -1,5 +1,4 @@
 #bottombarContainer{
-    width: 400px;
     bottom: 0px;
     left: 0;
     right: 0;
@@ -12,8 +11,8 @@
 }
 
 #topRow{
-    height: 40px;
-    line-height: 40px;
+    height: 10%;
+    line-height: 10%;
 }
 
 #topRow img{
@@ -22,7 +21,7 @@
 
 #frameNum{
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 20px;
+    font-size: 15px;
     color: white;
 }
 
@@ -33,17 +32,17 @@
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 15px;
     color: white;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
 }
 
 #chooseFrame{
-    padding-left: 60px;
-    padding-right: 60px;
+    padding-left: 15%;
+    padding-right: 15%;
 }
 
 #fps{
-    width: 35px;
+    width: 8.75%;
 }
 
 #bottombarContainer button{
@@ -53,8 +52,8 @@
     background-color: #31334b;
     border-color: #9c9feb;
     color:rgb(255, 255, 255);
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-right: 20px;
-    margin-left: 20px;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    margin-right: 5%;
+    margin-left: 5%;
 }
