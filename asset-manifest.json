@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/flipbook-animator-2/static/css/main.42824ef2.chunk.css",
-    "main.js": "/flipbook-animator-2/static/js/main.84afa569.chunk.js",
-    "main.js.map": "/flipbook-animator-2/static/js/main.84afa569.chunk.js.map",
+    "main.js": "/flipbook-animator-2/static/js/main.a2aaa686.chunk.js",
+    "main.js.map": "/flipbook-animator-2/static/js/main.a2aaa686.chunk.js.map",
     "runtime-main.js": "/flipbook-animator-2/static/js/runtime-main.c1f81054.js",
     "runtime-main.js.map": "/flipbook-animator-2/static/js/runtime-main.c1f81054.js.map",
     "static/js/2.18fc213c.chunk.js": "/flipbook-animator-2/static/js/2.18fc213c.chunk.js",
@@ -40,6 +40,6 @@
     "static/js/runtime-main.c1f81054.js",
     "static/js/2.18fc213c.chunk.js",
     "static/css/main.42824ef2.chunk.css",
-    "static/js/main.84afa569.chunk.js"
+    "static/js/main.a2aaa686.chunk.js"
   ]
 }
