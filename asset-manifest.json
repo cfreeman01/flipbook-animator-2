@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/flipbook-animator-2/static/css/main.59d49a60.chunk.css",
-    "main.js": "/flipbook-animator-2/static/js/main.5ede9e8a.chunk.js",
-    "main.js.map": "/flipbook-animator-2/static/js/main.5ede9e8a.chunk.js.map",
+    "main.css": "/flipbook-animator-2/static/css/main.42824ef2.chunk.css",
+    "main.js": "/flipbook-animator-2/static/js/main.0f36f957.chunk.js",
+    "main.js.map": "/flipbook-animator-2/static/js/main.0f36f957.chunk.js.map",
     "runtime-main.js": "/flipbook-animator-2/static/js/runtime-main.c1f81054.js",
     "runtime-main.js.map": "/flipbook-animator-2/static/js/runtime-main.c1f81054.js.map",
     "static/js/2.18fc213c.chunk.js": "/flipbook-animator-2/static/js/2.18fc213c.chunk.js",
     "static/js/2.18fc213c.chunk.js.map": "/flipbook-animator-2/static/js/2.18fc213c.chunk.js.map",
     "index.html": "/flipbook-animator-2/index.html",
-    "static/css/main.59d49a60.chunk.css.map": "/flipbook-animator-2/static/css/main.59d49a60.chunk.css.map",
+    "static/css/main.42824ef2.chunk.css.map": "/flipbook-animator-2/static/css/main.42824ef2.chunk.css.map",
     "static/js/2.18fc213c.chunk.js.LICENSE.txt": "/flipbook-animator-2/static/js/2.18fc213c.chunk.js.LICENSE.txt",
     "static/media/X.d73ecd37.png": "/flipbook-animator-2/static/media/X.d73ecd37.png",
     "static/media/black.1fd5be43.png": "/flipbook-animator-2/static/media/black.1fd5be43.png",
@@ -39,7 +39,7 @@
   "entrypoints": [
     "static/js/runtime-main.c1f81054.js",
     "static/js/2.18fc213c.chunk.js",
-    "static/css/main.59d49a60.chunk.css",
-    "static/js/main.5ede9e8a.chunk.js"
+    "static/css/main.42824ef2.chunk.css",
+    "static/js/main.0f36f957.chunk.js"
   ]
 }
