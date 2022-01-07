@@ -12,10 +12,15 @@ const Layer = ({ imgData, setImgData, width, height, top, left, zIndex, hidden, 
         let ctx = canvRef.current.getContext('2d');
         if (ctx) {
             if (!isDrawing && imgData !== null) {
-                ctx.putImageData(imgData, 0, 0);
+                ctx.putImageData(imgData, 0, 0, 0, 0, width, height);
             }
         }
     });
+
+    React.useEffect(() => {
+        let ctx = canvRef.current.getContext('2d');
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    }, [])
 
     return (
         <canvas ref={canvRef}

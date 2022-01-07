@@ -78,8 +78,9 @@ const BottomBar = () => {
         tempCanvas.width = canvas.width;
         tempCanvas.height = canvas.height;
 
+        ctx.clearRect(0, 0, canvas.width / window.devicePixelRatio, canvas.height / window.devicePixelRatio);
         ctx.fillStyle = 'white';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillRect(0, 0, canvas.width / window.devicePixelRatio, canvas.height / window.devicePixelRatio);
 
         if (frameIndex < 0) return;
 
@@ -87,8 +88,10 @@ const BottomBar = () => {
             let lyr = layers[frameIndex][lyrIndex];
             if (lyr.imgData && !lyr.hidden) {
                 ctx.globalAlpha = lyr.opacity / 100;
-                tempCanvas.getContext('2d').putImageData(layers[frameIndex][lyrIndex].imgData, 0, 0);
-                canvas.getContext('2d').drawImage(tempCanvas, 0, 0);
+                tempCanvas.getContext('2d').putImageData(layers[frameIndex][lyrIndex].imgData, 0, 0, 0, 0,
+                    canvas.width / window.devicePixelRatio, canvas.height / window.devicePixelRatio);
+                canvas.getContext('2d').drawImage(tempCanvas, 0, 0,
+                    canvas.width / window.devicePixelRatio, canvas.height / window.devicePixelRatio);
             }
         }
     }

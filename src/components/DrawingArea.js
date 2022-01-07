@@ -11,9 +11,12 @@ const DrawingArea = ({ width, height, botCanvasOpacity }) => {
 
     botCanvas.ref = React.useRef();
 
-    const handleResize = () => {
+    const adjustPositions = () => {
         _debounce(() => {
             let rect = botCanvas.ref.current.getBoundingClientRect();
+            if (rect.right === globalState.canvasRight && rect.left === globalState.canvasLeft &&
+                rect.top === globalState.canvasTop)
+                return;
             let newState = Object.assign({}, globalState);
             newState.canvasTop = rect.top;
             newState.canvasLeft = rect.left;
@@ -23,12 +26,10 @@ const DrawingArea = ({ width, height, botCanvasOpacity }) => {
     }
 
     React.useEffect(() => {
-        handleResize();
-    }, []);
+        adjustPositions();
 
-    React.useEffect(() => {
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+        window.addEventListener('resize', adjustPositions);
+        return () => window.removeEventListener('resize', adjustPositions);
     });
 
     return (
