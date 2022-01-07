@@ -55,7 +55,7 @@ const UndoRedoBar = () => {
                     newState.newLayerId++;
                     setGlobalState(newState);
                 }}
-                size={40} selected={false} />
+                size={'40px'} selected={false} />
 
             <IconButton btnTitle='Redo (ctrl + y)' imgSrc={redoIcon}
                 onClick_p={(e) => {
@@ -64,7 +64,7 @@ const UndoRedoBar = () => {
                     newState.newLayerId++;
                     setGlobalState(newState);
                 }}
-                size={40} selected={false} />
+                size={'40px'} selected={false} />
         </div>
     );
 }

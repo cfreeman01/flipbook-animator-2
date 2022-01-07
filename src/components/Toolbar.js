@@ -20,16 +20,16 @@ const Toolbar = () => {
     return (
         <div id="toolbarContainer">
             <IconButton btnTitle='Pencil' imgSrc={pencilIcon} onClick_p={() => setSelectedTool('Pencil')}
-                size={40} selected={globalState.selectedTool === 'Pencil'} />
+                size={'40px'} selected={globalState.selectedTool === 'Pencil'} />
 
             <IconButton btnTitle='Pen' imgSrc={penIcon} onClick_p={() => setSelectedTool('Pen')}
-                size={40} selected={globalState.selectedTool === 'Pen'} />
+                size={'40px'} selected={globalState.selectedTool === 'Pen'} />
 
             <IconButton btnTitle='Eraser' imgSrc={eraserIcon} onClick_p={() => setSelectedTool('Eraser')}
-                size={40} selected={globalState.selectedTool === 'Eraser'} />
+                size={'40px'} selected={globalState.selectedTool === 'Eraser'} />
 
             <IconButton btnTitle='Dropper' imgSrc={dropperIcon} onClick_p={() => setSelectedTool('Dropper')}
-                size={40} selected={globalState.selectedTool === 'Dropper'} />
+                size={'40px'} selected={globalState.selectedTool === 'Dropper'} />
         </div>
     );
 }

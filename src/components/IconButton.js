@@ -9,8 +9,10 @@ const IconButton = ({btnTitle, imgSrc, onClick_p, selected, size}) => {
 
     return(
         <img alt={btnTitle}
-        width={size}
-        height={size}
+        style={{
+            width: size,
+            height: size
+        }}
         title={btnTitle} 
         src={imgSrc} 
         className={iconClass}

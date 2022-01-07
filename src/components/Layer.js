@@ -12,7 +12,7 @@ const Layer = ({ imgData, setImgData, width, height, top, left, zIndex, hidden, 
         let ctx = canvRef.current.getContext('2d');
         if (ctx) {
             if (!isDrawing && imgData !== null) {
-                ctx.putImageData(imgData, 0, 0, 0, 0, width, height);
+                ctx.putImageData(imgData, 0, 0, 0, 0, canvRef.current.width, canvRef.current.height);
             }
         }
     });
@@ -55,7 +55,7 @@ const Layer = ({ imgData, setImgData, width, height, top, left, zIndex, hidden, 
                 event.preventDefault();
                 let ctx = canvRef.current.getContext('2d');
                 tools[globalState.selectedTool].endPath();
-                setImgData(ctx.getImageData(0, 0, width, height));
+                setImgData(ctx.getImageData(0, 0, canvRef.current.width, canvRef.current.height));
             }}
 
             onPointerOut={(event) => {
@@ -63,7 +63,7 @@ const Layer = ({ imgData, setImgData, width, height, top, left, zIndex, hidden, 
                 event.preventDefault();
                 let ctx = canvRef.current.getContext('2d');
                 tools[globalState.selectedTool].endPath();
-                setImgData(ctx.getImageData(0, 0, width, height));
+                setImgData(ctx.getImageData(0, 0, canvRef.current.width, canvRef.current.height));
             }}
 
             style={{

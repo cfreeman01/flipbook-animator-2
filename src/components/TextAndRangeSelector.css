@@ -4,7 +4,7 @@
 }
 
 #selectorText{
-    width: 35px;
+    width: 20%;
     margin-bottom: 10px;
 }
 
@@ -19,7 +19,7 @@
 
 #selectorRange{
     display: inline;
-    width: 90px;
+    width: 50%;
     margin-left: 10px;
     margin-bottom: 10px;
 }

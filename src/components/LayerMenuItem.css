@@ -7,7 +7,7 @@
 .layerMenuItemUnselected{
     text-align:left;
     width: 100%;
-    height: 28;
+    height: 16%;
     cursor: pointer;
     background-color: #b2b4fa;
 }
@@ -15,7 +15,7 @@
 .layerMenuItemHovered{
     text-align:left;
     width: 100%;
-    height: 28;
+    height: 16%;
     cursor: pointer;
     background-color: #a6a9fa;
 }
@@ -24,7 +24,7 @@
 
     text-align:left;
     width: 100%;
-    height: 28;
+    height: 16%;
     cursor: pointer;
     background-color: #9296ff;
 }

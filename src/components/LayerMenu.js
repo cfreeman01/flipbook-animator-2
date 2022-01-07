@@ -144,22 +144,22 @@ const LayerMenu = () => {
             <TextAndRangeSelector min={0} max={100} unit='%' initValue={100} setValue={setLayerOpacity} />
 
             <IconButton btnTitle='Add layer at top' imgSrc={plusIcon} onClick_p={addLayer}
-                size={28} selected={false} />
+                size={'16%'} selected={false} />
 
             <IconButton btnTitle='Remove current layer' imgSrc={xIcon} onClick_p={removeLayer}
-                size={28} selected={false} />
+                size={'16%'} selected={false} />
 
             <IconButton btnTitle='Move current layer up' imgSrc={upIcon} onClick_p={moveLayerUp}
-                size={28} selected={false} />
+                size={'16%'} selected={false} />
 
             <IconButton btnTitle='Move current layer down' imgSrc={downIcon} onClick_p={moveLayerDown}
-                size={28} selected={false} />
+                size={'16%'} selected={false} />
 
             <IconButton btnTitle='Copy current layer' imgSrc={copyIcon} onClick_p={copyLayer}
-                size={28} selected={false} />
+                size={'16%'} selected={false} />
 
             <IconButton btnTitle='Paste layer' imgSrc={pasteIcon} onClick_p={pasteLayer}
-                size={28} selected={false} />
+                size={'16%'} selected={false} />
 
             {layers[globalState.curFrame].map(({ id, imgData, hidden, name }, index) =>
                 <LayerMenuItem
