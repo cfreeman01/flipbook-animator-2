@@ -1,6 +1,7 @@
 import React from 'react';
 import './CanvasForm.css'
 
+/* Form that allows the user to enter dimensions of the canvas */
 const CanvasForm = ({ createCanvas_p }) => {
 
     let inputWidth = 500;

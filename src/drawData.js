@@ -1,16 +1,22 @@
+/* This file has methods to handle drawing on canvases, as well as handling the undo
+and redo operations*/
+
 /*These 3 sets of points are used to draw smoothed curves.*/
 let oldX = 0, oldY = 0;
 let midX = 0, midY = 0;
 let newX = 0, newY = 0;
 
-export let isDrawing = false;
+export let isDrawing = false; //true if the user is drawing
 
-export let layers = [[]];
+export let layers = [[]];  /* A 2D matrix of layers for each frame of the animation. Each slot holds an object */
+                           /* with an ImageData object, unique ID number, layer name, opacity, and bool to     */
+                           /* indicate if the layer is hidden. Indexed like 'layers[frame][layer]'             */
+                           /* (also: highest layer is stored at index 0)                                       */
 
-let undoStack = [];
+let undoStack = [];        //stacks to hold image data for undo and redo operations
 let redoStack = [];
 
-export let botCanvas = {
+export let botCanvas = {   //stores a reference to the bottom (base) canvas
     ref: null
 };
 
@@ -76,13 +82,15 @@ const calcSmoothPoints = (tension, numSegments) => {
     return smoothedPoints;
 }
 
-export let tools = {
+export let tools = {  //contains methods for each of the four tools
     Pencil: {
         startPath: (event, canvas) => {
             let ctx = canvas.getContext('2d');
             let rect = canvas.getBoundingClientRect();
-            undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-            redoStack.length = 0;
+
+            undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height)); //before drawing, store the current image data
+            redoStack.length = 0;                                                //also clear the redo stack
+
             isDrawing = true;
             oldX = midX = event.clientX - rect.left;
             oldY = midY = event.clientY - rect.top;
@@ -228,7 +236,7 @@ export let tools = {
     },
 
     Dropper: {
-        startPath: function (event, canvas) { //get color at x,y coordinate on main canvas
+        startPath: function (event, canvas) { //get color at x,y coordinate on the canvas
             let rect = canvas.getBoundingClientRect();
             let ctx = canvas.getContext('2d');
             let x = event.clientX - rect.left;

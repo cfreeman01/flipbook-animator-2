@@ -14,6 +14,7 @@ import pinkIcon from '../icons/pink.png'
 import purpleIcon from '../icons/purple.png'
 import blueIcon from '../icons/blue.png'
 
+/* Menu allowing user to select the brush color */
 const ColorSelector = () => {
 
     const { globalState, setGlobalState } = React.useContext(FlipbookContext);

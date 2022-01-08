@@ -1,6 +1,7 @@
 import React from 'react'
 import './IconButton.css'
 
+/* An image that acts as button; background changes when hovered or clicked */
 const IconButton = ({btnTitle, imgSrc, onClick_p, selected, size}) => {
 
     const [btnClass, setClass] = React.useState('iconUnselected');

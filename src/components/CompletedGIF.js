@@ -2,6 +2,7 @@ import React from 'react';
 import FlipbookContext from '../context'
 import './CompletedGIF.css'
 
+/* Display the finished animation as a GIF */
 const CompletedGIF = ({ gifSrc }) => {
 
     const { globalState, setGlobalState } = React.useContext(FlipbookContext);

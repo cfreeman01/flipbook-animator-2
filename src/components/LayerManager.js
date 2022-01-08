@@ -4,7 +4,7 @@ import { layers, clearUndoRedoStacks } from '../drawData'
 import IconButton from './IconButton'
 import TextAndRangeSelector from './TextAndRangeSelector'
 import LayerMenuItem from './LayerMenuItem'
-import './LayerMenu.css'
+import './LayerManager.css'
 import plusIcon from '../icons/plus.png'
 import xIcon from '../icons/X.png'
 import upIcon from '../icons/up.png'
@@ -14,10 +14,12 @@ import pasteIcon from '../icons/paste.png'
 
 let clipboard = 'empty';
 
-const LayerMenu = () => {
+/* Menu + methods to allow user to manipulate the layers for the current frame */
+const LayerManager = () => {
 
     const { globalState, setGlobalState } = React.useContext(FlipbookContext);
 
+    //add the initial layer
     React.useEffect(() => {
         layers[0].push({
             id: 0,
@@ -36,6 +38,7 @@ const LayerMenu = () => {
         setGlobalState(newState);
     }
 
+    /* Change selected layer */
     const selectLayer = (index) => {
         let newState = Object.assign({}, globalState);
         newState.curLayer = index;
@@ -43,6 +46,7 @@ const LayerMenu = () => {
         clearUndoRedoStacks();
     }
 
+    /* Change the name displayed on the layer menu item */
     const renameLayer = (index) => {
         let newState = Object.assign({}, globalState);
         let newName = prompt("Rename layer:", layers[globalState.curFrame][index].name);
@@ -53,6 +57,7 @@ const LayerMenu = () => {
         setGlobalState(newState);
     }
 
+    /* Add a new layer at the top of the layer stack (index 0 in layers[curFrame]) */
     const addLayer = () => {
         let newState = Object.assign({}, globalState);
 
@@ -70,6 +75,7 @@ const LayerMenu = () => {
         clearUndoRedoStacks();
     }
 
+    /* Delete the currently selected layer */
     const removeLayer = () => {
         if (layers[globalState.curFrame].length === 1) return;
         if (!window.confirm('Permanently delete this layer?')) return;
@@ -85,6 +91,7 @@ const LayerMenu = () => {
         clearUndoRedoStacks();
     }
 
+    /* Move the currently selected layer one position up in the layer stack */
     const moveLayerUp = () => {
         if (globalState.curLayer === 0) return;
         let newState = Object.assign({}, globalState);
@@ -97,6 +104,7 @@ const LayerMenu = () => {
         setGlobalState(newState);
     }
 
+    /* Move the currently selected layer one position down in the layer stack */
     const moveLayerDown = () => {
         if (globalState.curLayer === layers[globalState.curFrame].length - 1) return;
         let newState = Object.assign({}, globalState);
@@ -109,6 +117,7 @@ const LayerMenu = () => {
         setGlobalState(newState);
     }
 
+    /* Set the opacity of the currently selected layer */
     const setLayerOpacity = (value) => {
         layers[globalState.curFrame][globalState.curLayer].opacity = value;
         let newState = Object.assign({}, globalState);
@@ -116,11 +125,13 @@ const LayerMenu = () => {
         setGlobalState(newState);
     }
 
+    /* Make a copy of the current layer's ImageData and store it on the clipboard */
     const copyLayer = () => {
         clipboard = layers[globalState.curFrame][globalState.curLayer].imgData;
         clipboard.data.set(new Uint8ClampedArray(layers[globalState.curFrame][globalState.curLayer].imgData.data));
     }
 
+    /* Create a new layer on top, with the ImageData stored on the clipboard */
     const pasteLayer = () => {
         let newState = Object.assign({}, globalState);
         let newData = clipboard;
@@ -176,4 +187,4 @@ const LayerMenu = () => {
     );
 }
 
-export default LayerMenu;
+export default LayerManager;

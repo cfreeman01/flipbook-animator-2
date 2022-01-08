@@ -7,6 +7,8 @@ import redoIcon from '../icons/redo.png'
 
 let ctrlPressed = false;
 
+/* Displays undo and redo buttons on the left side of the page, as well as listening
+for key press events */
 const UndoRedoBar = () => {
 
     const { globalState, setGlobalState } = React.useContext(FlipbookContext);
@@ -14,7 +16,7 @@ const UndoRedoBar = () => {
     const keyPress = (event) => {
         if (event.ctrlKey === true) ctrlPressed = true;
 
-        if (event.key === 'z' && ctrlPressed == true) {
+        if (event.key === 'z' && ctrlPressed == true) { //ctrl+Z = undo
             event.preventDefault();
             undo(globalState.curFrame, globalState.curLayer);
             let newState = Object.assign({}, globalState);
@@ -22,7 +24,7 @@ const UndoRedoBar = () => {
             setGlobalState(newState);
         }
 
-        if (event.key === 'y' && ctrlPressed == true) {
+        if (event.key === 'y' && ctrlPressed == true) { //ctrl+Y = redo
             event.preventDefault();
             redo(globalState.curFrame, globalState.curLayer);
             let newState = Object.assign({}, globalState);

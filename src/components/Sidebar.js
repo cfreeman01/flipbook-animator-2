@@ -2,9 +2,10 @@ import React from 'react'
 import FlipbookContext from '../context'
 import ColorSelector from './ColorSelector'
 import TextAndRangeSelector from './TextAndRangeSelector'
-import LayerMenu from './LayerMenu'
+import LayerManager from './LayerManager'
 import './Sidebar.css'
 
+/* Menu containing various controls and options like layer menu, color selector etc. */
 const Sidebar = () => {
 
     const { globalState, setGlobalState } = React.useContext(FlipbookContext);
@@ -39,7 +40,7 @@ const Sidebar = () => {
             <h1>Last Frame Opacity</h1>
             <TextAndRangeSelector min={0} max={100} unit='%' initValue={20} setValue={setLastFrameOpacity} />
             <h1>Layers</h1>
-            <LayerMenu />
+            <LayerManager />
         </div>
     );
 }

@@ -4,6 +4,7 @@ import './LayerMenuItem.css'
 import hideIcon from '../icons/hide.png'
 import unhideIcon from '../icons/unhide.png'
 
+/* Selectable menu item that shows the layer name and a button to hide/unhide the layer */
 const LayerMenuItem = ({ name, selected, hidden, rename, select, hide }) => {
 
     const [layerClass, setClass] = React.useState('layerMenuItemUnselected');

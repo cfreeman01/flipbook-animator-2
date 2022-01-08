@@ -6,7 +6,7 @@ import penIcon from '../icons/pen.png'
 import eraserIcon from '../icons/eraser.png'
 import dropperIcon from '../icons/dropper.png'
 
-/*toolbar on the left side of the page*/
+/* The toolbar on the left side of the page */
 const Toolbar = () => {
 
     const { globalState, setGlobalState } = React.useContext(FlipbookContext);

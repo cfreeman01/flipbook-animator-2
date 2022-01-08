@@ -2,7 +2,7 @@ import React from 'react'
 import FlipbookContext from '../context'
 import IconButton from './IconButton'
 import { layers, clearUndoRedoStacks, botCanvas } from '../drawData'
-import './BottomBar.css'
+import './FrameManager.css'
 import leftArrowIcon from '../icons/left-arrow.png'
 import rightArrowIcon from '../icons/right-arrow.png'
 import plusIcon from '../icons/plus.png'
@@ -12,10 +12,12 @@ import { GIFEncoder } from '../gif'
 
 let framesPerSecond = 1;
 
-const BottomBar = () => {
+/* Menu + methods  to allow user to manipulate the animation frames */
+const FrameManager = () => {
 
     const { globalState, setGlobalState } = React.useContext(FlipbookContext);
 
+    /* Add a frame after the current frame */
     const addFrame = () => {
         let newState = Object.assign({}, globalState);
         layers.splice(globalState.curFrame + 1, 0, [{
@@ -33,6 +35,7 @@ const BottomBar = () => {
         setGlobalState(newState);
     }
 
+    /* Delete the current frame */
     const removeFrame = () => {
         if (layers.length === 1) return;
         if (!window.confirm('Permanently delete this frame?')) return;
@@ -51,6 +54,7 @@ const BottomBar = () => {
         clearUndoRedoStacks();
     }
 
+    /* Move to the previous frame */
     const prevFrame = () => {
         if (globalState.curFrame === 0) return;
         let newState = Object.assign({}, globalState);
@@ -61,6 +65,7 @@ const BottomBar = () => {
         setGlobalState(newState);
     }
 
+    /* Move to the next frame */
     const nextFrame = () => {
         if (globalState.curFrame === layers.length - 1) return;
         let newState = Object.assign({}, globalState);
@@ -71,23 +76,27 @@ const BottomBar = () => {
         setGlobalState(newState);
     }
 
+    /* Draw all of the layers of a frame, at layers[frameIndex], onto a single canvas */
     const drawFrame = (canvas, frameIndex) => {
         let ctx = canvas.getContext('2d');
 
-        let tempCanvas = document.createElement("canvas");
-        tempCanvas.width = canvas.width;
-        tempCanvas.height = canvas.height;
+        let tempCanvas = document.createElement("canvas"); /* The tempCanvas object is used to tranfer the image */
+        tempCanvas.width = canvas.width;                   /* from the ImageData object at layers[frameIndex] to */
+        tempCanvas.height = canvas.height;                 /* the destination canvas                             */
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height); //clear the canvas then fill in a white background
         ctx.fillStyle = 'white';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         if (frameIndex < 0) return;
 
+        //for each layer at layers[frameIndex], put the image data onto temp canvas then transfer it to the destination canvas
         for (let lyrIndex = layers[frameIndex].length - 1; lyrIndex >= 0; lyrIndex--) {
             let lyr = layers[frameIndex][lyrIndex];
-            if (lyr.imgData && !lyr.hidden) {
-                ctx.globalAlpha = lyr.opacity / 100;
+            if (lyr.imgData && !lyr.hidden) {         //make sure the ImageData is valid and the layer is not hidden
+
+                ctx.globalAlpha = lyr.opacity / 100;  //make sure to draw with the user's selected opacity
+
                 tempCanvas.getContext('2d').putImageData(layers[frameIndex][lyrIndex].imgData, 0, 0, 0, 0,
                     canvas.width, canvas.height);
                 canvas.getContext('2d').drawImage(tempCanvas, 0, 0,
@@ -96,15 +105,17 @@ const BottomBar = () => {
         }
     }
 
+    /* Use the jsgif library to create the finished animation as a GIF */
     const createGIF = () => {
         let encoder = GIFEncoder();
         let delay = (1 / framesPerSecond) * 1000;
+
         encoder.setQuality(1);
-        encoder.setRepeat(0);
+        encoder.setRepeat(0); 
         encoder.setDelay(delay);
         encoder.start();
 
-        let offScreenCanvas = document.createElement("canvas");
+        let offScreenCanvas = document.createElement("canvas"); //temporary canvas object to store each completed frame
         let osctx = offScreenCanvas.getContext('2d');
         offScreenCanvas.width = botCanvas.ref.current.width;
         offScreenCanvas.height = botCanvas.ref.current.height;
@@ -158,4 +169,4 @@ const BottomBar = () => {
     );
 }
 
-export default BottomBar;
+export default FrameManager;

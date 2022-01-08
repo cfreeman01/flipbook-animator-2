@@ -1,7 +1,7 @@
 import React from 'react'
 import './TextAndRangeSelector.css'
 
-/*a number input field with a range input field next to it, both kept in sync and 
+/*A number input field with a range input field next to it, both kept in sync and 
 enforcing min and max values*/
 const TextAndRangeSelector = ({min, max, unit, initValue, setValue}) => {
 
